@@ -1,13 +1,20 @@
-# React + Vite
+📨 Écrivia – AI-Powered Email Composer
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Écrivia est une application web moderne qui aide les utilisateurs à rédiger des emails professionnels de qualité grâce à l'intelligence artificielle. Développée en React.js et Tailwind CSS, elle intègre l’API Claude AI pour générer du contenu personnalisé selon le ton, la langue et le contexte souhaité.
+✨ Fonctionnalités principales :
 
-Currently, two official plugins are available:
+    🎯 Génération d'emails à partir d'un message de base + sélection du ton (chaleureux, formel, concis…)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+    🌍 Sélecteur de langue avec 10 options (Français, Anglais, Espagnol, etc.)
 
-## Expanding the ESLint configuration
+    🧠 Adaptation linguistique selon le genre, le titre et le nom du destinataire
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
-# ecrivia
+    🔐 Authentification avec Google ou enregistrement par email
+
+    📋 Bouton "Copier dans le presse-papiers" pour récupérer facilement le texte généré
+
+    💬 Option de réponse à un email reçu (avec champ d’entrée pour l'email initial)
+
+🎨 Design
+
+L’interface adopte un style neumorphism doux et professionnel, mettant en avant une expérience utilisateur fluide et intuitive.
