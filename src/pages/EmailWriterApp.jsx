@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { Copy, Mail, User, Globe, Send, LogIn, UserPlus, Bot, Sparkles } from 'lucide-react';
+import logo from "../assets/images/logoEcrivia.jpeg";
 
 const EmailWriterApp = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -392,25 +393,23 @@ Réponds uniquement avec le contenu de l'email, sans explications.`;
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center">
-                <Mail className="h-6 w-6 text-white" />
+              <img src={logo} width={55} height={55} className='rounded-2xl'/>
+                <div>
+                  <h1 className="text-xl font-bold text-gray-900">EmailCraft AI</h1>
+                  <p className="text-sm text-gray-600">Rédaction d'e-mails avec Groq (Llama 3)</p>
+                </div>
               </div>
-              <div>
-                <h1 className="text-xl font-bold text-gray-900">EmailCraft AI</h1>
-                <p className="text-sm text-gray-600">Rédaction d'e-mails avec Groq (Llama 3)</p>
+              <div className="flex items-center gap-4">
+                <span className="text-gray-700">Bonjour, {userData.name}</span>
+                <button
+                  onClick={() => setIsLoggedIn(false)}
+                  className="text-gray-500 hover:text-gray-700 px-3 py-1 rounded-lg hover:bg-gray-100 transition-colors"
+                >
+                  Déconnexion
+                </button>
               </div>
-            </div>
-            <div className="flex items-center gap-4">
-              <span className="text-gray-700">Bonjour, {userData.name}</span>
-              <button
-                onClick={() => setIsLoggedIn(false)}
-                className="text-gray-500 hover:text-gray-700 px-3 py-1 rounded-lg hover:bg-gray-100 transition-colors"
-              >
-                Déconnexion
-              </button>
             </div>
           </div>
-        </div>
       </header>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -576,8 +575,8 @@ Réponds uniquement avec le contenu de l'email, sans explications.`;
                 <button
                   onClick={handleCopyToClipboard}
                   className={`px-4 py-2 rounded-lg transition-colors font-medium flex items-center gap-2 ${copySuccess
-                      ? 'bg-green-100 text-green-700'
-                      : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                    ? 'bg-green-100 text-green-700'
+                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                     }`}
                 >
                   <Copy className="h-4 w-4" />
