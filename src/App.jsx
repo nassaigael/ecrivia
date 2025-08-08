@@ -6,8 +6,9 @@ function App() {
 
   return (
     <>
-        <EmailWriterApp/>
+        {/* <EmailWriterApp/> */}
         {/* <EmailComposerApp/> */}
+        <EmailComposerApp/>
     </>
   )
 }
