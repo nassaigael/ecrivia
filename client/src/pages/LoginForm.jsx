@@ -1,5 +1,3 @@
-// src/components/LoginForm.jsx
-import React from 'react';
 import logo from '../assets/images/logo.jpeg'
 
 const LoginForm = ({ setUserData, setIsLoggedIn, setShowSignup }) => {
@@ -83,9 +81,9 @@ const LoginForm = ({ setUserData, setIsLoggedIn, setShowSignup }) => {
           <div className="mt-6 text-center">
             <button
               onClick={() => setShowSignup(true)}
-              className=' text-[var(--primary-color)] hover:text-[var(--hover-color)]'
+              className=' text-[var(--accent-color)] '
             >
-              Créer un compte
+               Pas de compte ? <span className=' text-[var(--primary-color)] hover:text-[var(--hover-color)] '>Créer un</span>
             </button>
           </div>
         </div>
