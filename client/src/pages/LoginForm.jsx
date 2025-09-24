@@ -1,6 +1,7 @@
 // src/components/LoginForm.jsx
 import React from 'react';
 import { Mail, LogIn } from 'lucide-react';
+import logo from '../assets/images/logo.jpeg'
 
 const LoginForm = ({ setUserData, setIsLoggedIn, setShowSignup }) => {
   const handleGoogleLogin = () => {
@@ -19,20 +20,17 @@ const LoginForm = ({ setUserData, setIsLoggedIn, setShowSignup }) => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-gray-50 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-[var(--accent-color)] flex items-center justify-center p-4">
       <div className="max-w-md w-full">
-        <div className="bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
-          <div className="text-center mb-8">
-            <div className="inline-flex items-center justify-center w-16 h-16 bg-blue-100 rounded-full mb-4">
-              <Mail className="h-8 w-8 text-blue-600" />
-            </div>
-            <h1 className="text-2xl font-bold text-gray-900 mb-2">EmailCraft AI</h1>
-            <p className="text-gray-600">Rédigez des e-mails parfaits avec Groq</p>
+        <div className="bg-[var(--bg-color)] rounded-2xl shadow-xl p-8 border border-gray-100">
+          <div className="text-center mb-8 flex justify-center items-center flex-col gap-4">
+              <img src={logo} width={55} height={55} className='rounded-2xl' alt="Logo" />
+            <p className="text-[var(--text-color)]  ">Rédigez des e-mails parfaits avec écrivia</p>
           </div>
 
           <div className="space-y-6">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Adresse e-mail</label>
+              <label className="block text-sm font-medium text-[var(--accent-color)] mb-2">Adresse e-mail</label>
               <input
                 type="email"
                 required
@@ -42,7 +40,7 @@ const LoginForm = ({ setUserData, setIsLoggedIn, setShowSignup }) => {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Mot de passe</label>
+              <label className="block text-sm font-medium text-[var(--accent-color)] mb-2">Mot de passe</label>
               <input
                 type="password"
                 required
@@ -53,20 +51,19 @@ const LoginForm = ({ setUserData, setIsLoggedIn, setShowSignup }) => {
             </div>
             <button
               onClick={handleLogin}
-              className="w-full bg-blue-600 text-white py-3 px-4 rounded-lg hover:bg-blue-700 transition-colors font-medium flex items-center justify-center gap-2"
+              className=" capitalize w-full bg-[var(--primary-color)] text-[var(--accent-color)] py-3 px-4 rounded-lg hover:bg-[var(--hover-color)] transition-colors font-medium flex items-center justify-center gap-2"
             >
-              <LogIn className="h-5 w-5" />
-              Se connecter
+              se connecter
             </button>
           </div>
 
           <div className="mt-6">
             <div className="relative">
               <div className="absolute inset-0 flex items-center">
-                <div className="w-full border-t border-gray-300" />
+                <div className="w-full border-t border-[var(--accent-color)] " />
               </div>
               <div className="relative flex justify-center text-sm">
-                <span className="px-2 bg-white text-gray-500">ou</span>
+                <span className="px-2 bg-[var(--bg-color)] text-[var(--accent-color)] ">ou</span>
               </div>
             </div>
 
@@ -87,9 +84,9 @@ const LoginForm = ({ setUserData, setIsLoggedIn, setShowSignup }) => {
           <div className="mt-6 text-center">
             <button
               onClick={() => setShowSignup(true)}
-              className="text-blue-600 hover:text-blue-700 font-medium"
+              className=' text-[var(--primary-color)] hover:text-[var(--hover-color)]'
             >
-              Nouveau ? Créer un compte
+              Créer un compte
             </button>
           </div>
         </div>
