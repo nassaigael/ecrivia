@@ -1,6 +1,5 @@
 // src/components/LoginForm.jsx
 import React from 'react';
-import { Mail, LogIn } from 'lucide-react';
 import logo from '../assets/images/logo.jpeg'
 
 const LoginForm = ({ setUserData, setIsLoggedIn, setShowSignup }) => {
