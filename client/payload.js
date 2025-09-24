@@ -16,7 +16,7 @@ async function main() {
       messages: [
         {
           role: 'user',
-          content: 'Bonjour, expliquez-moi l’importance des modèles de langage rapides.', // Message non vide
+          content: '', // Message non vide
         },
       ],
       model: 'llama3-8b-8192', // Modèle valide (vérifiez la disponibilité)

@@ -1,4 +1,4 @@
-// src/App.jsx
+// src/EmailComposerApp.jsx
 import React, { useState } from 'react';
 import Header from '../components/Header';
 import LoginForm from '../components/LoginForm';
@@ -8,7 +8,7 @@ import GeneratedEmail from '../components/GeneratedEmail';
 import Instructions from '../components/Instructions';
 import { generateEmailWithGroq } from '../utils/generateEmailWithGroq';
 
-const App = () => {
+const EmailComposerApp = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [showSignup, setShowSignup] = useState(false);
   const [userData, setUserData] = useState({ name: '', email: '' });
@@ -103,4 +103,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default EmailComposerApp;
