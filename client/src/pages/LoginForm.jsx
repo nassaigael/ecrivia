@@ -22,7 +22,7 @@ const LoginForm = ({ setUserData, setIsLoggedIn, setShowSignup }) => {
         <div className="bg-[var(--bg-color)] rounded-2xl shadow-xl p-8 border">
           <div className="text-center mb-8 flex justify-center items-center flex-col gap-4">
             <img src={logo} width={55} height={55} className='rounded-2xl' alt="Logo" />
-            <p className="text-[var(--text-color)]  ">Rédigez des e-mails parfaits avec écrivia</p>
+            <p className="text-[var(--text-color)]  ">Se connecter à votre compte</p>
           </div>
 
           <div className="space-y-6">
