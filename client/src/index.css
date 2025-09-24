@@ -1,1 +1,12 @@
 @import "tailwindcss";
+
+:root {
+  --bg-color: #000000;
+  --text-color: #ffb6c1;
+  --primary-color: #ff69b4;
+  --hover-color: #f34b9f;
+  --secondary-color: #2c2c2c;
+  --accent-color: #ffffff;
+  --error-color: #ff0000c9;
+  --font-family: 'Poppins';
+}
