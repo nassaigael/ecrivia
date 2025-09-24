@@ -21,9 +21,9 @@ const LoginForm = ({ setUserData, setIsLoggedIn, setShowSignup }) => {
   return (
     <div className="min-h-screen bg-[var(--accent-color)] flex items-center justify-center p-4">
       <div className="max-w-md w-full">
-        <div className="bg-[var(--bg-color)] rounded-2xl shadow-xl p-8 border border-gray-100">
+        <div className="bg-[var(--bg-color)] rounded-2xl shadow-xl p-8 border">
           <div className="text-center mb-8 flex justify-center items-center flex-col gap-4">
-              <img src={logo} width={55} height={55} className='rounded-2xl' alt="Logo" />
+            <img src={logo} width={55} height={55} className='rounded-2xl' alt="Logo" />
             <p className="text-[var(--text-color)]  ">Rédigez des e-mails parfaits avec écrivia</p>
           </div>
 
@@ -33,7 +33,7 @@ const LoginForm = ({ setUserData, setIsLoggedIn, setShowSignup }) => {
               <input
                 type="email"
                 required
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg peer focus:outline-none focus:ring-2 focus:ring-[var(--hover-color)] focus:border-transparent text-[var(--accent-color)] "
+                className="w-full px-4 py-3 border-2 border-[var(--accent-color)] rounded-lg peer focus:outline-none focus:ring-2 focus:ring-[var(--hover-color)] focus:border-transparent text-[var(--accent-color)] "
                 placeholder="votre@email.com"
                 id="login-email"
               />
@@ -43,8 +43,8 @@ const LoginForm = ({ setUserData, setIsLoggedIn, setShowSignup }) => {
               <input
                 type="password"
                 required
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg peer focus:outline-none focus:ring-2 focus:ring-[var(--hover-color)] focus:border-transparent text-[var(--accent-color)] "
-                placeholder="••••••••"
+                className="w-full px-4 py-3 border-2 border-[var(--accent-color)] rounded-lg peer focus:outline-none focus:ring-2 focus:ring-[var(--hover-color)] focus:border-transparent text-[var(--accent-color)] "
+                placeholder="y0uR pa$$Word"
                 id="login-password"
               />
             </div>
