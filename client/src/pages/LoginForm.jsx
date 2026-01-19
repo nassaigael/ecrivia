@@ -1,54 +1,16 @@
 import logo from '../assets/images/logo.jpeg';
-import { auth, provider } from '../firebase';
-import {
-  signInWithPopup,
-  signInWithEmailAndPassword,
-} from 'firebase/auth';
 
-const LoginForm = ({ setUserData, setIsLoggedIn, setShowSignup }) => {
-  const handleGoogleLogin = async () => {
-    try {
-      const result = await signInWithPopup(auth, provider);
-      const user = result.user;
-
-      setUserData({
-        name: user.displayName || user.email.split('@')[0],
-        email: user.email,
-        photoURL: user.photoURL,
-      });
-
-      setIsLoggedIn(true);
-    } catch (error) {
-      console.error('Erreur Google login :', error);
-      alert('Erreur lors de la connexion avec Google');
-    }
-  };
-
-  const handleLogin = async (e) => {
+const LoginForm = ({ setShowSignup }) => {
+  const handleLogin = (e) => {
     e.preventDefault();
 
     const email = e.target.email.value;
     const password = e.target.password.value;
 
-    try {
-      const userCredential = await signInWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
+    console.log('Email :', email);
+    console.log('Mot de passe :', password);
 
-      const user = userCredential.user;
-
-      setUserData({
-        name: user.displayName || user.email.split('@')[0],
-        email: user.email,
-      });
-
-      setIsLoggedIn(true);
-    } catch (error) {
-      console.error('Erreur login email/password :', error);
-      alert('Email ou mot de passe incorrect.');
-    }
+    alert('Connexion simulée (aucune authentification active)');
   };
 
   return (
@@ -102,26 +64,6 @@ const LoginForm = ({ setUserData, setIsLoggedIn, setShowSignup }) => {
               Se connecter
             </button>
           </form>
-
-          <div className="mt-6">
-            <div className="relative mb-6">
-              <div className="absolute inset-0 flex items-center">
-                <div className="w-full border-t border-[var(--accent-color)]" />
-              </div>
-              <div className="relative flex justify-center text-sm">
-                <span className="px-2 bg-[var(--bg-color)] text-[var(--accent-color)]">
-                  ou
-                </span>
-              </div>
-            </div>
-
-            <button
-              onClick={handleGoogleLogin}
-              className="w-full bg-[var(--hover-color)] text-[var(--accent-color)] py-3 rounded-lg font-medium flex items-center justify-center gap-2"
-            >
-              Continuer avec Google
-            </button>
-          </div>
 
           <div className="mt-6 text-center">
             <button
