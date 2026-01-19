@@ -2,11 +2,11 @@
 import React, { useState } from 'react';
 import Header from '../components/Header';
 import LoginForm from './LoginForm';
-import SignupForm from './SingupForm';
+import SignupForm from './SingupForm'; // Note : "SingupForm" semble être une faute de frappe, corrigez en "SignupForm" si besoin
 import EmailForm from '../components/EmailForm';
 import GeneratedEmail from '../components/GeneratedEmail';
 import Instructions from '../components/Instructions';
-import { generateEmailWithGroq } from '../utils/generateEmailWithGroq';
+import { generateEmailWithPuter } from '../utils/generateEmailWithPuter'; // Remplacé par Puter.js
 
 const EmailComposerApp = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -56,10 +56,9 @@ const EmailComposerApp = () => {
 
   const handleGenerateEmail = async () => {
     if (!formData.mainMessage.trim()) return;
-
     setIsGenerating(true);
     try {
-      const email = await generateEmailWithGroq(formData);
+      const email = await generateEmailWithPuter(formData);
       setGeneratedEmail(email);
     } catch (error) {
       console.error('Erreur lors de la génération:', error);

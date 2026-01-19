@@ -1,34 +1,63 @@
+<<<<<<< HEAD:client/src/components/Header.jsx
 // src/components/Header.jsx
 import React from 'react';
 import { LogOut } from 'lucide-react';
 import logo from '../assets/images/logo.jpeg';
+=======
+import React, { useState } from 'react';
+import Logo from '../assets/images/logoEcrivia.jpeg'
 
-const Header = ({ userData, setIsLoggedIn }) => {
+export default function Header({ userData, logout }) {
+  const [showDropdown, setShowDropdown] = useState(false);
+
+  const toggleDropdown = () => {
+    setShowDropdown(!showDropdown);
+  };
+>>>>>>> 075ea07672da7a24ab61d361f134be33514cba12:src/components/Header.jsx
+
   return (
-    <header className="bg-white shadow-sm border-b border-gray-200">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <img src={logo} width={55} height={55} className="rounded-2xl" alt="Logo" />
-            <div>
-              <h1 className="text-xl font-bold text-gray-900">EmailCraft AI</h1>
-              <p className="text-sm text-gray-600">Rédaction d'e-mails avec Groq (Llama 3)</p>
-            </div>
-          </div>
-          <div className="flex items-center gap-4">
-            <span className="text-gray-700">Bonjour, {userData.name}</span>
-            <button
-              onClick={() => setIsLoggedIn(false)}
-              className="text-gray-500 hover:text-gray-700 px-3 py-1 rounded-lg hover:bg-gray-100 transition-colors"
-            >
-              <LogOut className="h-5 w-5 inline-block mr-2" />
-              Déconnexion
-            </button>
-          </div>
-        </div>
-      </div>
-    </header>
-  );
-};
+      <header className="bg-white shadow-md px-6 py-3 flex justify-between items-center relative z-50">
+         <div className="flex items-center gap-2">
+          <img src={Logo} alt="Logo" className="h-10 w-10 object-contain" />
+          <span className="text-xl font-bold text-gray-700">MonApp</span>
 
-export default Header;
+        </div>
+
+         <div className="relative flex items-center gap-2">
+           <div onClick={toggleDropdown} className="cursor-pointer">
+            {userData.picture ? (
+                <img
+                    src={userData.picture}
+                    alt="Profil"
+                    className="w-10 h-10 rounded-full object-cover border border-gray-300"
+                />
+            ) : (
+                <div className="w-10 h-10 rounded-full bg-gray-500 text-white flex items-center justify-center">
+                  {userData.name?.charAt(0).toUpperCase() || 'U'}
+                </div>
+            )}
+          </div>
+
+          {/* Chevron (optionnel) */}
+          <i
+              className={`fa fa-chevron-${showDropdown ? 'up' : 'down'} text-gray-600 cursor-pointer`}
+              onClick={toggleDropdown}
+          ></i>
+
+          {/* Dropdown utilisateur */}
+          {showDropdown && (
+              <div className="absolute right-0 top-14 w-64 bg-gray-800 text-white rounded-lg shadow-lg p-4">
+                <p className="font-semibold mb-1">{userData.name}</p>
+                <p className="text-sm mb-3 break-words">{userData.email}</p>
+                <button
+                    onClick={logout}
+                    className="bg-red-500 hover:bg-red-600 text-white w-full py-2 rounded-md text-sm"
+                >
+                  Log Out
+                </button>
+              </div>
+          )}
+        </div>
+      </header>
+  );
+}
