@@ -1,7 +1,7 @@
 // src/components/Header.jsx
 import React from 'react';
 import { LogOut } from 'lucide-react';
-import logo from '../assets/images/logoEcrivia.jpeg';
+import logo from '../assets/images/logo.jpeg';
 
 const Header = ({ userData, setIsLoggedIn }) => {
   return (

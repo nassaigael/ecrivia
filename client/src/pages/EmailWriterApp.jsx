@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { Copy, Mail, User, Globe, Send, LogIn, UserPlus, Bot, Sparkles } from 'lucide-react';
-import logo from "../assets/images/logoEcrivia.jpeg";
+import logo from "../assets/images/logo.jpeg";
 
 const EmailWriterApp = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);

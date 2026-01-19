@@ -7,7 +7,7 @@ dotenv.config();
 
 // Initialiser le client Groq
 const groq = new Groq({
-  apiKey: process.env.GROQ_API_KEY, // La clé est lue depuis .env
+  apiKey: process.env.GROQ_API_KEY, 
 });
 
 async function main() {
@@ -16,7 +16,7 @@ async function main() {
       messages: [
         {
           role: 'user',
-          content: '', // Message non vide
+          content: ' peut on faire une mis à jour de systeme de windows 7 sans casser mon données en passant sur windows 10 ', // Message non vide
         },
       ],
       model: 'llama3-8b-8192', // Modèle valide (vérifiez la disponibilité)

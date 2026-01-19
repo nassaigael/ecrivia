@@ -1,8 +1,8 @@
 // src/EmailComposerApp.jsx
 import React, { useState } from 'react';
 import Header from '../components/Header';
-import LoginForm from '../components/LoginForm';
-import SignupForm from '../components/SingupForm';
+import LoginForm from './LoginForm';
+import SignupForm from './SingupForm';
 import EmailForm from '../components/EmailForm';
 import GeneratedEmail from '../components/GeneratedEmail';
 import Instructions from '../components/Instructions';
