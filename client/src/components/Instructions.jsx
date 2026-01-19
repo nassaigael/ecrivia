@@ -1,4 +1,3 @@
-// src/components/Instructions.jsx
 import React from 'react';
 
 const Instructions = () => {
