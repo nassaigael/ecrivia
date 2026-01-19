@@ -5,10 +5,9 @@ function App() {
 
   return (
     <>
-        {/* <EmailWriterApp/> */}
         <EmailComposerApp/>
     </>
   )
 }
 
-export default App
+export default App;
