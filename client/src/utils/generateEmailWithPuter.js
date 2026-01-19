@@ -1,4 +1,3 @@
-// src/utils/generateEmailWithPuter.js
 import puter from '@heyputer/puter.js';
 
 export const generateEmailWithPuter = async (formData) => {
