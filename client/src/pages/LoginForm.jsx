@@ -1,11 +1,4 @@
-<<<<<<< HEAD:client/src/pages/LoginForm.jsx
 import logo from '../assets/images/logo.jpeg'
-=======
- import React from 'react';
-import { Mail, LogIn } from 'lucide-react';
-import { signInWithPopup, signInWithEmailAndPassword } from 'firebase/auth';
-import { auth, provider } from '../firebaseConfig.js';
->>>>>>> 075ea07672da7a24ab61d361f134be33514cba12:src/components/LoginForm.jsx
 
 const LoginForm = ({ setUserData, setIsLoggedIn, setShowSignup }) => {
   const handleGoogleLogin = async () => {

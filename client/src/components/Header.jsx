@@ -1,11 +1,5 @@
-<<<<<<< HEAD:client/src/components/Header.jsx
-// src/components/Header.jsx
-import React from 'react';
-import { LogOut } from 'lucide-react';
-import logo from '../assets/images/logo.jpeg';
-=======
 import React, { useState } from 'react';
-import Logo from '../assets/images/logoEcrivia.jpeg'
+import Logo from '../assets/images/logo.jpeg'
 
 export default function Header({ userData, logout }) {
   const [showDropdown, setShowDropdown] = useState(false);
@@ -13,7 +7,6 @@ export default function Header({ userData, logout }) {
   const toggleDropdown = () => {
     setShowDropdown(!showDropdown);
   };
->>>>>>> 075ea07672da7a24ab61d361f134be33514cba12:src/components/Header.jsx
 
   return (
       <header className="bg-white shadow-md px-6 py-3 flex justify-between items-center relative z-50">
