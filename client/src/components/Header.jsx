@@ -1,7 +1,7 @@
 // src/components/Header.jsx
 import React, { useState, useEffect, useRef } from 'react';
 import { ChevronDown, ChevronUp, User, LogOut } from 'lucide-react';
-import Logo from '../assets/images/logo.jpeg';
+import Logo from '../assets/images/logo.png';
 
 export default function Header({ userData, logout }) {
   const [showDropdown, setShowDropdown] = useState(false);

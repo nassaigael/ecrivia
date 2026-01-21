@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { GoogleLogin, GoogleOAuthProvider } from '@react-oauth/google';
-import logo from '../assets/images/logo.jpeg';
+import logo from '../assets/images/logo.png';
 
 const LoginForm = ({ setUserData, setIsLoggedIn, googleClientId }) => {
   const [loading, setLoading] = useState(false);
