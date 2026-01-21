@@ -1,4 +1,3 @@
-// src/components/GeneratedEmail.jsx
 import React, { useRef } from 'react';
 import { Send, Copy, Mail } from 'lucide-react';
 
@@ -19,7 +18,6 @@ const GeneratedEmail = ({ generatedEmail, setGeneratedEmail, copySuccess, setCop
     <div className="bg-white rounded-2xl shadow-xl p-6 border border-gray-100">
       <div className="flex items-center justify-between mb-6">
         <h2 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
-          <Send className="h-6 w-6 text-green-600" />
           E-mail généré
         </h2>
         {generatedEmail && (

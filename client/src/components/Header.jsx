@@ -80,7 +80,6 @@ export default function Header({ userData, logout }) {
     };
   }, []);
 
-  // Effect pour fetch blob sur change userData
   useEffect(() => {
     const url = userData.picture ? `${userData.picture}&sz=40` : '';
     console.log('Tentative photo:', url);
@@ -88,7 +87,7 @@ export default function Header({ userData, logout }) {
     setImageLoaded(false);
     setImageError(false);
     if (url) {
-      fetchAvatarAsBlob(url); // Fetch blob
+      fetchAvatarAsBlob(url);
     }
   }, [userData.picture]);
 
@@ -98,10 +97,10 @@ export default function Header({ userData, logout }) {
     <header className="bg-white dark:bg-gray-800 shadow-md px-4 sm:px-6 py-3 sm:py-4 flex justify-between items-center relative z-50 border-b border-gray-100 dark:border-gray-700">
       <div className="flex items-center gap-2">
         <img src={Logo} alt="Logo MonApp" className="h-8 w-8 sm:h-10 sm:w-10 object-contain rounded-lg" />
-        <span className="text-lg sm:text-xl font-bold text-gray-700 dark:text-gray-200">MonApp</span>
+        <span className="text-lg sm:text-xl font-bold text-gray-700 dark:text-gray-200">ECRIVIA</span>
       </div>
       <div className="relative flex items-center gap-2" ref={dropdownRef}>
-        <div 
+        <div
           onClick={toggleDropdown}
           onKeyDown={handleKeyDown}
           role="button"
@@ -113,7 +112,7 @@ export default function Header({ userData, logout }) {
         >
           {avatarSrc && !imageError ? (
             <img
-              src={avatarSrc} // Blob URL (local, pas de CORS)
+              src={avatarSrc}
               alt="Photo de profil"
               onLoad={handleImageLoad}
               onError={handleImageError}
@@ -125,7 +124,7 @@ export default function Header({ userData, logout }) {
             </div>
           )}
         </div>
-        <div 
+        <div
           onClick={toggleDropdown}
           onKeyDown={handleKeyDown}
           role="button"

@@ -1,4 +1,3 @@
-// src/components/LoginForm.jsx
 import React, { useState } from 'react';
 import { GoogleLogin, GoogleOAuthProvider } from '@react-oauth/google';
 import logo from '../assets/images/logo.jpeg';
@@ -10,7 +9,6 @@ const LoginForm = ({ setUserData, setIsLoggedIn, googleClientId }) => {
   const handleSuccess = (credentialResponse) => {
     setLoading(false);
     try {
-      // Décodage JWT robuste pour UTF-8 (fix accents)
       const base64Url = credentialResponse.credential.split('.')[1];
       const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
       const binaryString = atob(base64);
@@ -20,14 +18,14 @@ const LoginForm = ({ setUserData, setIsLoggedIn, googleClientId }) => {
       
       const userInfo = {
         id: payload.sub,
-        name: payload.name || 'Utilisateur', // UTF-8 natif maintenant
+        name: payload.name || 'Utilisateur',
         email: payload.email,
         picture: payload.picture || '',
       };
-      console.log('User info décodé (UTF-8 safe):', userInfo); // Log pour vérifier accents
+      console.log('User info décodé (UTF-8 safe):', userInfo);
       setUserData(userInfo);
       setIsLoggedIn(true);
-      localStorage.setItem('googleUser', JSON.stringify(userInfo)); // JSON gère UTF-8 auto
+      localStorage.setItem('googleUser', JSON.stringify(userInfo));
     } catch (err) {
       console.error('Erreur décodage token:', err);
       setError('Erreur lors de la connexion. Réessayez.');

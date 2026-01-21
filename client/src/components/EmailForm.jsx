@@ -1,7 +1,6 @@
-// src/components/EmailForm.jsx (version sans longueur, icônes Lucide confirmées)
 import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { Bot, Globe, User, Sparkles } from 'lucide-react';
+import { Globe, User, Sparkles } from 'lucide-react';
 
 const EmailForm = ({ formData, setFormData, handleGenerateEmail, isGenerating, tones, languages, genders }) => {
   const {
@@ -14,15 +13,12 @@ const EmailForm = ({ formData, setFormData, handleGenerateEmail, isGenerating, t
     defaultValues: formData,
   });
 
-  // Synchroniser le formulaire avec les props formData
   useEffect(() => {
     reset(formData);
   }, [formData, reset]);
 
-  // Watch for form changes
   const formValues = watch();
 
-  // Mettre à jour formData quand le formulaire change
   useEffect(() => {
     if (isDirty) {
       setFormData(formValues);
@@ -37,7 +33,6 @@ const EmailForm = ({ formData, setFormData, handleGenerateEmail, isGenerating, t
   return (
     <div className="bg-white rounded-2xl shadow-xl p-6 border border-gray-100">
       <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-2">
-        <Bot className="h-6 w-6 text-blue-600" />
         Composer votre e-mail
       </h2>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">

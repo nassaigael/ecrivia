@@ -1,6 +1,5 @@
-// src/EmailComposerApp.jsx
 import React, { useState, useEffect } from 'react';
-import { GoogleOAuthProvider, googleLogout } from '@react-oauth/google'; // Ajout googleLogout
+import { GoogleOAuthProvider, googleLogout } from '@react-oauth/google';
 import Header from '../components/Header';
 import LoginForm from './LoginForm';
 import EmailForm from '../components/EmailForm';
@@ -17,8 +16,7 @@ const EmailComposerApp = ({ googleClientId }) => {
     const savedUser = localStorage.getItem('googleUser');
     if (savedUser) {
       try {
-        const parsedUser = JSON.parse(savedUser); // JSON.parse gère UTF-8
-        // Double-check accents sur load
+        const parsedUser = JSON.parse(savedUser);
         parsedUser.name = parsedUser.name || 'Utilisateur';
         console.log('User loaded from localStorage (UTF-8):', parsedUser);
         setUserData(parsedUser);
@@ -97,7 +95,7 @@ const EmailComposerApp = ({ googleClientId }) => {
   };
 
   const handleLogout = () => {
-    googleLogout(); // Appel de la fonction pour déconnecter Google
+    googleLogout();
     localStorage.removeItem('googleUser');
     setUserData({ name: '', email: '' });
     setIsLoggedIn(false);
@@ -141,7 +139,7 @@ const EmailComposerApp = ({ googleClientId }) => {
             <button onClick={() => setAuthError('')} className="ml-2">×</button>
           </div>
         )}
-        <Header userData={userData} logout={handleLogout} /> {/* Pas besoin de googleClientId ici maintenant */}
+        <Header userData={userData} logout={handleLogout} />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             <EmailForm
