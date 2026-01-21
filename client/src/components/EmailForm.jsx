@@ -1,4 +1,5 @@
-import React from 'react';
+// src/components/EmailForm.jsx (version sans longueur, icônes Lucide confirmées)
+import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { Bot, Globe, User, Sparkles } from 'lucide-react';
 
@@ -6,14 +7,31 @@ const EmailForm = ({ formData, setFormData, handleGenerateEmail, isGenerating, t
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isDirty },
+    reset,
+    watch,
   } = useForm({
     defaultValues: formData,
   });
 
-  const onSubmit = (data) => {
+  // Synchroniser le formulaire avec les props formData
+  useEffect(() => {
+    reset(formData);
+  }, [formData, reset]);
+
+  // Watch for form changes
+  const formValues = watch();
+
+  // Mettre à jour formData quand le formulaire change
+  useEffect(() => {
+    if (isDirty) {
+      setFormData(formValues);
+    }
+  }, [formValues, isDirty, setFormData]);
+
+  const onSubmit = async (data) => {
     setFormData(data);
-    handleGenerateEmail();
+    await handleGenerateEmail();
   };
 
   return (
@@ -22,7 +40,6 @@ const EmailForm = ({ formData, setFormData, handleGenerateEmail, isGenerating, t
         <Bot className="h-6 w-6 text-blue-600" />
         Composer votre e-mail
       </h2>
-
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">Message principal *</label>
@@ -44,7 +61,6 @@ const EmailForm = ({ formData, setFormData, handleGenerateEmail, isGenerating, t
             <p className="mt-1 text-sm text-red-600">{errors.mainMessage.message}</p>
           )}
         </div>
-
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">Ton de l'e-mail</label>
@@ -62,7 +78,6 @@ const EmailForm = ({ formData, setFormData, handleGenerateEmail, isGenerating, t
             </select>
             {errors.tone && <p className="mt-1 text-sm text-red-600">{errors.tone.message}</p>}
           </div>
-
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2 flex items-center gap-2">
               <Globe className="h-4 w-4" />
@@ -85,7 +100,6 @@ const EmailForm = ({ formData, setFormData, handleGenerateEmail, isGenerating, t
             )}
           </div>
         </div>
-
         <div className="bg-gray-50 rounded-lg p-4">
           <h3 className="text-lg font-medium text-gray-900 mb-4 flex items-center gap-2">
             <User className="h-5 w-5 text-gray-600" />
@@ -127,7 +141,6 @@ const EmailForm = ({ formData, setFormData, handleGenerateEmail, isGenerating, t
             />
           </div>
         </div>
-
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">
             E-mail auquel vous répondez (optionnel)
@@ -139,7 +152,6 @@ const EmailForm = ({ formData, setFormData, handleGenerateEmail, isGenerating, t
             rows={3}
           />
         </div>
-
         <button
           type="submit"
           disabled={isGenerating}
