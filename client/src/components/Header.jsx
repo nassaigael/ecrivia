@@ -96,7 +96,7 @@ export default function Header({ userData, logout }) {
   return (
     <header className="bg-white dark:bg-gray-800 shadow-md px-4 sm:px-6 py-3 sm:py-4 flex justify-between items-center relative z-50 border-b border-gray-100 dark:border-gray-700">
       <div className="flex items-center gap-2">
-        <img src={Logo} alt="Logo MonApp" className="h-8 w-8 sm:h-10 sm:w-10 object-contain rounded-lg" />
+        <img src={Logo} alt="logo" className="h-8 w-8 sm:h-10 sm:w-10 object-contain rounded-lg" />
         <span className="text-lg sm:text-xl font-bold text-gray-700 dark:text-gray-200">ECRIVIA</span>
       </div>
       <div className="relative flex items-center gap-2" ref={dropdownRef}>

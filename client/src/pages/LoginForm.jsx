@@ -43,7 +43,7 @@ const LoginForm = ({ setUserData, setIsLoggedIn, googleClientId }) => {
         <div className="max-w-md w-full">
           <div className="bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
             <div className="text-center mb-8 flex flex-col items-center gap-4">
-              <img src={logo} width={55} height={55} className="rounded-2xl" alt="Logo EmailCraft AI" />
+              <img src={logo} width={55} height={55} className="rounded-2xl" alt="Logo" />
               <p className="text-gray-900 font-medium">Se connecter avec Google</p>
             </div>
             {error && <p className="text-red-600 text-sm text-center mb-4">{error}</p>}
