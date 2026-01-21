@@ -148,13 +148,6 @@ export default function Header({ userData, logout }) {
             </div>
             <div className="space-y-2">
               <button
-                onClick={() => { setShowDropdown(false); }}
-                className="w-full flex items-center gap-2 py-2 px-3 rounded-md text-left hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors text-sm"
-              >
-                <User className="h-4 w-4" />
-                Profil
-              </button>
-              <button
                 onClick={handleLogoutClick}
                 className="w-full flex items-center gap-2 bg-red-500 hover:bg-red-600 text-white py-2 px-3 rounded-md text-sm transition-colors"
               >
