@@ -6,7 +6,7 @@ import Logo from '../assets/images/logo.png';
 export default function Header({ userData, logout }) {
   const [showDropdown, setShowDropdown] = useState(false);
   const [avatarSrc, setAvatarSrc] = useState('');
-  const [imageLoaded, setImageLoaded] = useState(false);
+  const [setImageLoaded] = useState(false);
   const [imageError, setImageError] = useState(false);
   const dropdownRef = useRef(null);
 
@@ -46,12 +46,11 @@ export default function Header({ userData, logout }) {
     if (window.puter && window.puter.auth) {
       window.puter.auth.signOut().catch(console.error);
     }
-    
+
     logout();
     setShowDropdown(false);
   };
 
-  // Charger l'avatar
   useEffect(() => {
     if (userData.picture) {
       setAvatarSrc(userData.picture);
@@ -61,7 +60,7 @@ export default function Header({ userData, logout }) {
       setAvatarSrc('');
       setImageError(true);
     }
-  }, [userData.picture]);
+  }, [setImageLoaded, userData.picture]);
 
   const displayName = userData.name || userData.username || 'Utilisateur';
 
