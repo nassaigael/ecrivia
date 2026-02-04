@@ -216,28 +216,7 @@ export default function Header({ userData, logout }) {
                   </>
                 )}
               </button>
-              
-              <button
-                onClick={() => {
-                  console.log('État session:', {
-                    puterExists: !!window.puter,
-                    puterUser: window.puter?.auth?.user?.(),
-                    localStorage: localStorage.getItem('puterUser'),
-                    cookies: document.cookie
-                  });
-                  alert('Vérifiez la console (F12) pour les infos de débogage');
-                }}
-                className="w-full text-xs text-blue-500 hover:text-blue-600 text-center"
-              >
-                Déboguer session
-              </button>
-              
-              <button
-                onClick={forceLogout}
-                className="w-full text-xs text-gray-500 hover:text-red-500 underline text-center pt-1"
-              >
-                Déconnexion forcée (si bloqué)
-              </button>
+            
             </div>
           </div>
         )}
