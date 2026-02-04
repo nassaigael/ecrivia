@@ -1,4 +1,3 @@
-// src/pages/LoginForm.jsx
 import React, { useState, useEffect } from 'react';
 import { usePuterAuth } from '../hooks/usePuterAuth';
 import logo from '../assets/images/logo.png';
