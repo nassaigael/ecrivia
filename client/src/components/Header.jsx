@@ -1,13 +1,15 @@
 // src/components/Header.jsx
 import React, { useState, useEffect, useRef } from 'react';
-import { ChevronDown, ChevronUp, User, LogOut } from 'lucide-react';
+import { ChevronDown, ChevronUp, User, LogOut, AlertCircle } from 'lucide-react';
 import Logo from '../assets/images/logo.png';
 
 export default function Header({ userData, logout }) {
   const [showDropdown, setShowDropdown] = useState(false);
   const [avatarSrc, setAvatarSrc] = useState('');
-  const [setImageLoaded] = useState(false);
+  const [, setImageLoaded] = useState(false);
   const [imageError, setImageError] = useState(false);
+  const [logoutError, setLogoutError] = useState('');
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
   const dropdownRef = useRef(null);
 
   const handleImageError = () => {
@@ -41,16 +43,83 @@ export default function Header({ userData, logout }) {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  const handleLogoutClick = () => {
-    // Nettoyer la session Puter
-    if (window.puter && window.puter.auth) {
-      window.puter.auth.signOut().catch(console.error);
+  const handleLogoutClick = async () => {
+    setIsLoggingOut(true);
+    setLogoutError('');
+    
+    try {
+      // 1. Tentative de déconnexion via Puter SDK
+      if (window.puter && window.puter.auth) {
+        console.log('Tentative de déconnexion via Puter SDK...');
+        try {
+          await window.puter.auth.signOut();
+          console.log('Déconnexion Puter SDK réussie');
+        } catch (puterError) {
+          console.warn('Puter SDK déconnexion échouée:', puterError);
+        }
+      }
+      
+      // 2. Nettoyer le localStorage
+      localStorage.removeItem('puterUser');
+      localStorage.removeItem('puter_session');
+      localStorage.removeItem('puter_token');
+      
+      // 3. Nettoyer les cookies Puter
+      const cookies = document.cookie.split(";");
+      for (let i = 0; i < cookies.length; i++) {
+        const cookie = cookies[i];
+        const eqPos = cookie.indexOf("=");
+        const name = eqPos > -1 ? cookie.substr(0, eqPos).trim() : cookie.trim();
+        
+        // Effacer les cookies liés à Puter
+        if (name.includes('puter') || name.includes('auth') || name.includes('session') || name.includes('token')) {
+          document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        }
+      }
+      
+      // 4. Appeler la fonction de déconnexion parent
+      logout();
+      
+      // 5. Fermer le dropdown
+      setShowDropdown(false);
+      
+      // 6. Forcer un rechargement complet pour s'assurer que tout est nettoyé
+      setTimeout(() => {
+        window.location.reload();
+      }, 300);
+      
+    } catch (error) {
+      console.error('Erreur lors de la déconnexion complète:', error);
+      setLogoutError('Erreur lors de la déconnexion. Veuillez recharger la page manuellement.');
+      
+      // Fallback: Nettoyage forcé et redirection
+      setTimeout(() => {
+        localStorage.clear();
+        sessionStorage.clear();
+        window.location.href = window.location.origin;
+      }, 1500);
+    } finally {
+      setIsLoggingOut(false);
     }
-
-    logout();
-    setShowDropdown(false);
   };
 
+  const forceLogout = () => {
+    // Déconnexion forcée immédiate
+    localStorage.clear();
+    sessionStorage.clear();
+    
+    // Effacer tous les cookies
+    document.cookie.split(";").forEach(c => {
+      document.cookie = c
+        .replace(/^ +/, "")
+        .replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
+    });
+    
+    // Rediriger vers la page racine
+    window.location.href = '/';
+  };
+
+  // Charger l'avatar
   useEffect(() => {
     if (userData.picture) {
       setAvatarSrc(userData.picture);
@@ -60,7 +129,7 @@ export default function Header({ userData, logout }) {
       setAvatarSrc('');
       setImageError(true);
     }
-  }, [setImageLoaded, userData.picture]);
+  }, [userData.picture]);
 
   const displayName = userData.name || userData.username || 'Utilisateur';
 
@@ -109,7 +178,7 @@ export default function Header({ userData, logout }) {
           )}
         </div>
         {showDropdown && (
-          <div className="absolute right-0 top-full mt-2 w-64 bg-white text-gray-900 rounded-xl shadow-xl border border-gray-200 p-4 transition-all duration-200 opacity-100 scale-100 transform">
+          <div className="absolute right-0 top-full mt-2 w-72 bg-white text-gray-900 rounded-xl shadow-xl border border-gray-200 p-4 transition-all duration-200 opacity-100 scale-100 transform">
             <div className="mb-4">
               <p className="font-semibold text-gray-900 break-words" title={displayName}>
                 {displayName}
@@ -119,13 +188,55 @@ export default function Header({ userData, logout }) {
                 <p className="text-xs text-gray-400 mt-1">@{userData.username}</p>
               )}
             </div>
+            
+            {logoutError && (
+              <div className="mb-3 p-2 bg-red-50 border border-red-200 rounded-lg">
+                <div className="flex items-center gap-2 text-red-600 text-sm">
+                  <AlertCircle className="h-4 w-4" />
+                  <span>{logoutError}</span>
+                </div>
+              </div>
+            )}
+            
             <div className="space-y-2">
               <button
                 onClick={handleLogoutClick}
-                className="w-full flex items-center gap-2 bg-red-500 hover:bg-red-600 text-white py-2 px-3 rounded-md text-sm transition-colors"
+                disabled={isLoggingOut}
+                className="w-full flex items-center justify-center gap-2 bg-red-500 hover:bg-red-600 text-white py-2 px-3 rounded-md text-sm transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                <LogOut className="h-4 w-4" />
-                Déconnexion Puter
+                {isLoggingOut ? (
+                  <>
+                    <div className="animate-spin rounded-full h-4 w-4 border-2 border-white border-t-transparent"></div>
+                    Déconnexion...
+                  </>
+                ) : (
+                  <>
+                    <LogOut className="h-4 w-4" />
+                    Déconnexion Puter
+                  </>
+                )}
+              </button>
+              
+              <button
+                onClick={() => {
+                  console.log('État session:', {
+                    puterExists: !!window.puter,
+                    puterUser: window.puter?.auth?.user?.(),
+                    localStorage: localStorage.getItem('puterUser'),
+                    cookies: document.cookie
+                  });
+                  alert('Vérifiez la console (F12) pour les infos de débogage');
+                }}
+                className="w-full text-xs text-blue-500 hover:text-blue-600 text-center"
+              >
+                Déboguer session
+              </button>
+              
+              <button
+                onClick={forceLogout}
+                className="w-full text-xs text-gray-500 hover:text-red-500 underline text-center pt-1"
+              >
+                Déconnexion forcée (si bloqué)
               </button>
             </div>
           </div>

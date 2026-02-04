@@ -9,11 +9,11 @@ import { generateEmailWithPuter } from '../utils/generateEmailWithPuter';
 
 const EmailComposerApp = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [userData, setUserData] = useState({ 
-    name: '', 
-    email: '', 
-    username: '', 
-    picture: '' 
+  const [userData, setUserData] = useState({
+    name: '',
+    email: '',
+    username: '',
+    picture: ''
   });
   const [authError, setAuthError] = useState('');
   const [puterInitialized, setPuterInitialized] = useState(false);
@@ -112,17 +112,17 @@ const EmailComposerApp = () => {
       setAuthError('Veuillez vous connecter avec Puter pour générer un email.');
       return;
     }
-    
+
     setIsGenerating(true);
     setGeneratedEmail('');
     setAuthError('');
-    
+
     try {
       const emailData = {
         ...formData,
         userName: userData.name || userData.username,
       };
-      
+
       const email = await generateEmailWithPuter(emailData);
       setGeneratedEmail(email);
     } catch (error) {
@@ -133,16 +133,20 @@ const EmailComposerApp = () => {
     }
   };
 
+  // Dans EmailComposerApp.jsx, modifier la fonction handleLogout
   const handleLogout = () => {
-    if (window.puter && window.puter.auth) {
-      window.puter.auth.signOut().catch(console.error);
-    }
-    
+    console.log('Déconnexion Puter en cours...');
+
+    // 1. Nettoyer le localStorage
     localStorage.removeItem('puterUser');
+
+    // 2. Réinitialiser l'état de l'application
     setUserData({ name: '', email: '', username: '', picture: '' });
     setIsLoggedIn(false);
     setAuthError('');
     setGeneratedEmail('');
+
+    // 3. Réinitialiser le formulaire
     setFormData({
       mainMessage: '',
       tone: 'professionnel',
@@ -152,7 +156,13 @@ const EmailComposerApp = () => {
       recipientTitle: '',
       replyToEmail: '',
     });
-    console.log('Logout Puter effectué.');
+
+    console.log('Déconnexion application réussie');
+
+    // 4. Recharger la page pour nettoyer complètement Puter.js
+    setTimeout(() => {
+      window.location.reload();
+    }, 100);
   };
 
   useEffect(() => {
@@ -180,8 +190,8 @@ const EmailComposerApp = () => {
           <div className="fixed top-4 right-4 bg-red-500 text-white p-4 rounded-lg z-50 shadow-lg">
             <div className="flex items-center justify-between">
               <span>{authError}</span>
-              <button 
-                onClick={() => setAuthError('')} 
+              <button
+                onClick={() => setAuthError('')}
                 className="ml-3 text-white hover:text-gray-200"
               >
                 ×
@@ -203,8 +213,8 @@ const EmailComposerApp = () => {
         <div className="fixed top-4 right-4 bg-red-500 text-white p-4 rounded-lg z-50 shadow-lg">
           <div className="flex items-center justify-between">
             <span>{authError}</span>
-            <button 
-              onClick={() => setAuthError('')} 
+            <button
+              onClick={() => setAuthError('')}
               className="ml-3 text-white hover:text-gray-200"
             >
               ×
