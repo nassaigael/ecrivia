@@ -5,6 +5,7 @@ import LoginForm from './LoginForm';
 import EmailForm from '../components/EmailForm';
 import GeneratedEmail from '../components/GeneratedEmail';
 import Instructions from '../components/Instructions';
+import Footer from '../components/Footer'; // ← Ajoutez cette ligne
 import { generateEmailWithPuter } from '../utils/generateEmailWithPuter';
 
 const EmailComposerApp = ({ googleClientId }) => {
@@ -132,7 +133,7 @@ const EmailComposerApp = ({ googleClientId }) => {
 
   return (
     <GoogleOAuthProvider clientId={googleClientId}>
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-gray-50">
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-gray-50 flex flex-col">
         {authError && (
           <div className="fixed top-4 right-4 bg-red-500 text-white p-4 rounded-lg z-50">
             {authError}
@@ -140,7 +141,7 @@ const EmailComposerApp = ({ googleClientId }) => {
           </div>
         )}
         <Header userData={userData} logout={handleLogout} />
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-grow">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             <EmailForm
               formData={formData}
@@ -159,6 +160,7 @@ const EmailComposerApp = ({ googleClientId }) => {
             />
           </div>
           <Instructions />
+          <Footer /> 
         </div>
       </div>
     </GoogleOAuthProvider>
