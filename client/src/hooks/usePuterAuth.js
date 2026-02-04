@@ -1,4 +1,3 @@
-// src/hooks/usePuterAuth.js
 import { useState, useEffect } from 'react';
 
 export const usePuterAuth = () => {
@@ -7,14 +6,11 @@ export const usePuterAuth = () => {
 
   const signInWithPuter = async () => {
     try {
-      // Vérifier si Puter.js est disponible
       if (!window.puter || !window.puter.auth) {
         throw new Error('Puter.js SDK non disponible');
       }
 
-      // Authentification avec Puter
       const user = await window.puter.auth.signIn({
-        // Options d'authentification
         permissions: ['user:read'],
       });
       
