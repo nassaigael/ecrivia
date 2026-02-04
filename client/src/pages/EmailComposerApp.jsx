@@ -1,33 +1,67 @@
+// src/pages/EmailComposerApp.jsx
 import React, { useState, useEffect } from 'react';
-import { GoogleOAuthProvider, googleLogout } from '@react-oauth/google';
 import Header from '../components/Header';
 import LoginForm from './LoginForm';
 import EmailForm from '../components/EmailForm';
 import GeneratedEmail from '../components/GeneratedEmail';
 import Instructions from '../components/Instructions';
-import Footer from '../components/Footer'; // ← Ajoutez cette ligne
 import { generateEmailWithPuter } from '../utils/generateEmailWithPuter';
 
-const EmailComposerApp = ({ googleClientId }) => {
+const EmailComposerApp = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [userData, setUserData] = useState({ name: '', email: '' });
+  const [userData, setUserData] = useState({ 
+    name: '', 
+    email: '', 
+    username: '', 
+    picture: '' 
+  });
   const [authError, setAuthError] = useState('');
+  const [puterInitialized, setPuterInitialized] = useState(false);
 
+  // Initialiser Puter.js
   useEffect(() => {
-    const savedUser = localStorage.getItem('googleUser');
+    const initPuter = async () => {
+      if (typeof window !== 'undefined' && !window.puter) {
+        try {
+          // Charger dynamiquement Puter.js
+          const script = document.createElement('script');
+          script.src = 'https://js.puter.com/v2/';
+          script.async = true;
+          script.onload = () => {
+            console.log('Puter.js SDK chargé');
+            window.puter.init({ appID: 'ecrivia' });
+            setPuterInitialized(true);
+          };
+          document.head.appendChild(script);
+        } catch (error) {
+          console.error('Erreur chargement Puter.js:', error);
+          setPuterInitialized(false);
+        }
+      } else if (window.puter) {
+        setPuterInitialized(true);
+      }
+    };
+
+    initPuter();
+  }, []);
+
+  // Charger l'utilisateur depuis localStorage
+  useEffect(() => {
+    if (!puterInitialized) return;
+
+    const savedUser = localStorage.getItem('puterUser');
     if (savedUser) {
       try {
         const parsedUser = JSON.parse(savedUser);
-        parsedUser.name = parsedUser.name || 'Utilisateur';
-        console.log('User loaded from localStorage (UTF-8):', parsedUser);
         setUserData(parsedUser);
         setIsLoggedIn(true);
+        console.log('Utilisateur Puter chargé depuis localStorage');
       } catch (error) {
-        console.error('Erreur chargement user:', error);
-        localStorage.removeItem('googleUser');
+        console.error('Erreur chargement user Puter:', error);
+        localStorage.removeItem('puterUser');
       }
     }
-  }, []);
+  }, [puterInitialized]);
 
   const [formData, setFormData] = useState({
     mainMessage: '',
@@ -78,30 +112,52 @@ const EmailComposerApp = ({ googleClientId }) => {
       return;
     }
     if (!isLoggedIn) {
-      setAuthError('Veuillez vous connecter pour générer un email.');
+      setAuthError('Veuillez vous connecter avec Puter pour générer un email.');
       return;
     }
+    
     setIsGenerating(true);
     setGeneratedEmail('');
     setAuthError('');
+    
     try {
-      const email = await generateEmailWithPuter(formData);
+      // Ajouter le nom de l'utilisateur aux données du formulaire
+      const emailData = {
+        ...formData,
+        userName: userData.name || userData.username,
+      };
+      
+      const email = await generateEmailWithPuter(emailData);
       setGeneratedEmail(email);
     } catch (error) {
       console.error('Erreur lors de la génération:', error);
-      setAuthError('Erreur génération. Réessayez.');
+      setAuthError('Erreur génération. Réessayez ou vérifiez votre connexion Puter.');
     } finally {
       setIsGenerating(false);
     }
   };
 
   const handleLogout = () => {
-    googleLogout();
-    localStorage.removeItem('googleUser');
-    setUserData({ name: '', email: '' });
+    // Déconnexion Puter
+    if (window.puter && window.puter.auth) {
+      window.puter.auth.signOut().catch(console.error);
+    }
+    
+    localStorage.removeItem('puterUser');
+    setUserData({ name: '', email: '', username: '', picture: '' });
     setIsLoggedIn(false);
     setAuthError('');
-    console.log('Logout effectué.');
+    setGeneratedEmail('');
+    setFormData({
+      mainMessage: '',
+      tone: 'professionnel',
+      language: 'fr',
+      recipientName: '',
+      recipientGender: 'non-specifie',
+      recipientTitle: '',
+      replyToEmail: '',
+    });
+    console.log('Logout Puter effectué.');
   };
 
   useEffect(() => {
@@ -111,59 +167,78 @@ const EmailComposerApp = ({ googleClientId }) => {
     }
   }, [copySuccess]);
 
+  if (!puterInitialized) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+          <p className="text-gray-600">Chargement de Puter.js...</p>
+        </div>
+      </div>
+    );
+  }
+
   if (!isLoggedIn) {
     return (
-      <GoogleOAuthProvider clientId={googleClientId}>
-        <>
-          {authError && (
-            <div className="fixed top-4 right-4 bg-red-500 text-white p-4 rounded-lg z-50">
-              {authError}
-              <button onClick={() => setAuthError('')} className="ml-2">×</button>
+      <>
+        {authError && (
+          <div className="fixed top-4 right-4 bg-red-500 text-white p-4 rounded-lg z-50 shadow-lg">
+            <div className="flex items-center justify-between">
+              <span>{authError}</span>
+              <button 
+                onClick={() => setAuthError('')} 
+                className="ml-3 text-white hover:text-gray-200"
+              >
+                ×
+              </button>
             </div>
-          )}
-          <LoginForm
-            setUserData={setUserData}
-            setIsLoggedIn={setIsLoggedIn}
-            googleClientId={googleClientId}
-          />
-        </>
-      </GoogleOAuthProvider>
+          </div>
+        )}
+        <LoginForm
+          setUserData={setUserData}
+          setIsLoggedIn={setIsLoggedIn}
+        />
+      </>
     );
   }
 
   return (
-    <GoogleOAuthProvider clientId={googleClientId}>
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-gray-50 flex flex-col">
-        {authError && (
-          <div className="fixed top-4 right-4 bg-red-500 text-white p-4 rounded-lg z-50">
-            {authError}
-            <button onClick={() => setAuthError('')} className="ml-2">×</button>
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-gray-50">
+      {authError && (
+        <div className="fixed top-4 right-4 bg-red-500 text-white p-4 rounded-lg z-50 shadow-lg">
+          <div className="flex items-center justify-between">
+            <span>{authError}</span>
+            <button 
+              onClick={() => setAuthError('')} 
+              className="ml-3 text-white hover:text-gray-200"
+            >
+              ×
+            </button>
           </div>
-        )}
-        <Header userData={userData} logout={handleLogout} />
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-grow">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            <EmailForm
-              formData={formData}
-              setFormData={setFormData}
-              handleGenerateEmail={handleGenerateEmail}
-              isGenerating={isGenerating}
-              tones={tones}
-              languages={languages}
-              genders={genders}
-            />
-            <GeneratedEmail
-              generatedEmail={generatedEmail}
-              setGeneratedEmail={setGeneratedEmail}
-              copySuccess={copySuccess}
-              setCopySuccess={setCopySuccess}
-            />
-          </div>
-          <Instructions />
-          <Footer /> 
         </div>
+      )}
+      <Header userData={userData} logout={handleLogout} />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <EmailForm
+            formData={formData}
+            setFormData={setFormData}
+            handleGenerateEmail={handleGenerateEmail}
+            isGenerating={isGenerating}
+            tones={tones}
+            languages={languages}
+            genders={genders}
+          />
+          <GeneratedEmail
+            generatedEmail={generatedEmail}
+            setGeneratedEmail={setGeneratedEmail}
+            copySuccess={copySuccess}
+            setCopySuccess={setCopySuccess}
+          />
+        </div>
+        <Instructions />
       </div>
-    </GoogleOAuthProvider>
+    </div>
   );
 };
 

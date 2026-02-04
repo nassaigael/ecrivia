@@ -1,4 +1,3 @@
-import React from 'react';
 import { Heart } from 'lucide-react';
 
 const Footer = () => {
@@ -13,12 +12,12 @@ const Footer = () => {
           <Heart className="h-4 w-4 text-red-500 fill-current" />
           <span>par</span>
           <a 
-            href="https://github.com/rakotoniainarivelo" 
+            href="https://www.linkedin.com/in/nassaigael/" 
             target="_blank" 
             rel="noopener noreferrer"
             className="text-blue-600 dark:text-blue-400 hover:underline font-medium ml-1"
           >
-            Rakotoniaina Nivelo
+            Gaël RAMAHANDRISOA
           </a>
         </div>
       </div>
