@@ -1,4 +1,3 @@
-// src/components/Header.jsx
 import React, { useState, useEffect, useRef } from 'react';
 import { ChevronDown, ChevronUp, User, LogOut, AlertCircle } from 'lucide-react';
 import Logo from '../assets/images/logo.png';
@@ -48,7 +47,6 @@ export default function Header({ userData, logout }) {
     setLogoutError('');
     
     try {
-      // 1. Tentative de déconnexion via Puter SDK
       if (window.puter && window.puter.auth) {
         console.log('Tentative de déconnexion via Puter SDK...');
         try {
@@ -59,31 +57,25 @@ export default function Header({ userData, logout }) {
         }
       }
       
-      // 2. Nettoyer le localStorage
       localStorage.removeItem('puterUser');
       localStorage.removeItem('puter_session');
       localStorage.removeItem('puter_token');
       
-      // 3. Nettoyer les cookies Puter
       const cookies = document.cookie.split(";");
       for (let i = 0; i < cookies.length; i++) {
         const cookie = cookies[i];
         const eqPos = cookie.indexOf("=");
         const name = eqPos > -1 ? cookie.substr(0, eqPos).trim() : cookie.trim();
         
-        // Effacer les cookies liés à Puter
         if (name.includes('puter') || name.includes('auth') || name.includes('session') || name.includes('token')) {
           document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
         }
       }
       
-      // 4. Appeler la fonction de déconnexion parent
       logout();
       
-      // 5. Fermer le dropdown
       setShowDropdown(false);
       
-      // 6. Forcer un rechargement complet pour s'assurer que tout est nettoyé
       setTimeout(() => {
         window.location.reload();
       }, 300);
@@ -92,7 +84,6 @@ export default function Header({ userData, logout }) {
       console.error('Erreur lors de la déconnexion complète:', error);
       setLogoutError('Erreur lors de la déconnexion. Veuillez recharger la page manuellement.');
       
-      // Fallback: Nettoyage forcé et redirection
       setTimeout(() => {
         localStorage.clear();
         sessionStorage.clear();
@@ -103,23 +94,6 @@ export default function Header({ userData, logout }) {
     }
   };
 
-  const forceLogout = () => {
-    // Déconnexion forcée immédiate
-    localStorage.clear();
-    sessionStorage.clear();
-    
-    // Effacer tous les cookies
-    document.cookie.split(";").forEach(c => {
-      document.cookie = c
-        .replace(/^ +/, "")
-        .replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
-    });
-    
-    // Rediriger vers la page racine
-    window.location.href = '/';
-  };
-
-  // Charger l'avatar
   useEffect(() => {
     if (userData.picture) {
       setAvatarSrc(userData.picture);
