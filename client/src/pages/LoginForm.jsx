@@ -8,7 +8,6 @@ const LoginForm = ({ setUserData, setIsLoggedIn }) => {
   const [error, setError] = useState('');
   const { signInWithPuter, checkPuterSession } = usePuterAuth();
 
-  // Vérifier la session au chargement
   useEffect(() => {
     const initAuth = async () => {
       try {
@@ -16,12 +15,12 @@ const LoginForm = ({ setUserData, setIsLoggedIn }) => {
         if (user) {
           handlePuterUser(user);
         }
+      // eslint-disable-next-line no-unused-vars
       } catch (err) {
         console.log('Pas de session Puter existante');
       }
     };
     
-    // Attendre que Puter.js soit chargé
     const checkPuterLoaded = () => {
       if (window.puter) {
         initAuth();
