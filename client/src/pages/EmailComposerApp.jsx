@@ -1,4 +1,3 @@
-// src/pages/EmailComposerApp.jsx
 import React, { useState, useEffect } from 'react';
 import Header from '../components/Header';
 import LoginForm from './LoginForm';
@@ -133,20 +132,16 @@ const EmailComposerApp = () => {
     }
   };
 
-  // Dans EmailComposerApp.jsx, modifier la fonction handleLogout
   const handleLogout = () => {
     console.log('Déconnexion Puter en cours...');
 
-    // 1. Nettoyer le localStorage
     localStorage.removeItem('puterUser');
 
-    // 2. Réinitialiser l'état de l'application
     setUserData({ name: '', email: '', username: '', picture: '' });
     setIsLoggedIn(false);
     setAuthError('');
     setGeneratedEmail('');
 
-    // 3. Réinitialiser le formulaire
     setFormData({
       mainMessage: '',
       tone: 'professionnel',
@@ -159,7 +154,6 @@ const EmailComposerApp = () => {
 
     console.log('Déconnexion application réussie');
 
-    // 4. Recharger la page pour nettoyer complètement Puter.js
     setTimeout(() => {
       window.location.reload();
     }, 100);
