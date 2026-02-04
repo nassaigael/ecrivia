@@ -18,12 +18,10 @@ const EmailComposerApp = () => {
   const [authError, setAuthError] = useState('');
   const [puterInitialized, setPuterInitialized] = useState(false);
 
-  // Initialiser Puter.js
   useEffect(() => {
     const initPuter = async () => {
       if (typeof window !== 'undefined' && !window.puter) {
         try {
-          // Charger dynamiquement Puter.js
           const script = document.createElement('script');
           script.src = 'https://js.puter.com/v2/';
           script.async = true;
@@ -45,7 +43,6 @@ const EmailComposerApp = () => {
     initPuter();
   }, []);
 
-  // Charger l'utilisateur depuis localStorage
   useEffect(() => {
     if (!puterInitialized) return;
 
@@ -121,7 +118,6 @@ const EmailComposerApp = () => {
     setAuthError('');
     
     try {
-      // Ajouter le nom de l'utilisateur aux données du formulaire
       const emailData = {
         ...formData,
         userName: userData.name || userData.username,
@@ -138,7 +134,6 @@ const EmailComposerApp = () => {
   };
 
   const handleLogout = () => {
-    // Déconnexion Puter
     if (window.puter && window.puter.auth) {
       window.puter.auth.signOut().catch(console.error);
     }
