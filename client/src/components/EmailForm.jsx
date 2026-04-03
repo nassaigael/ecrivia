@@ -1,6 +1,8 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
+// eslint-disable-next-line no-unused-vars
+import { motion } from 'framer-motion';
 import { useForm } from 'react-hook-form';
-import { Globe, User, Sparkles } from 'lucide-react';
+import { User, Sparkles, Mail, MessageSquare, Send, AtSign, Briefcase, Languages } from 'lucide-react';
 
 const EmailForm = ({ formData, setFormData, handleGenerateEmail, isGenerating, tones, languages, genders }) => {
   const {
@@ -30,14 +32,48 @@ const EmailForm = ({ formData, setFormData, handleGenerateEmail, isGenerating, t
     await handleGenerateEmail();
   };
 
+  const containerVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.5, ease: "easeOut" }
+    }
+  };
+
+  const buttonVariants = {
+    idle: { scale: 1 },
+    hover: { scale: 1.02 },
+    tap: { scale: 0.98 }
+  };
+
   return (
-    <div className="bg-white rounded-2xl shadow-xl p-6 border border-gray-100">
-      <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-2">
+    <motion.div
+      variants={containerVariants}
+      initial="hidden"
+      animate="visible"
+      className="rounded-3xl p-6 md:p-8"
+      style={{
+        background: "#f0e2e6",
+        boxShadow: "20px 20px 40px #d0b6be, -20px -20px 40px #ffffff",
+      }}
+    >
+      <h2 className="text-2xl md:text-3xl font-bold mb-6 flex items-center text-center gap-3"
+        style={{
+          background: "linear-gradient(135deg, #c23b78, #d95c92)",
+          WebkitBackgroundClip: "text",
+          WebkitTextFillColor: "transparent",
+        }}>
         Composer votre e-mail
       </h2>
+
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+        {/* Message principal */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">Message principal *</label>
+          <label className="block text-sm font-semibold mb-2 flex items-center gap-2" style={{ color: "#c23b78" }}>
+            <MessageSquare className="h-4 w-4" />
+            Message principal <span className="text-xs">*</span>
+          </label>
           <textarea
             {...register('mainMessage', {
               required: 'Le message principal est requis',
@@ -47,79 +83,119 @@ const EmailForm = ({ formData, setFormData, handleGenerateEmail, isGenerating, t
               },
             })}
             placeholder="Décrivez le message que vous souhaitez transmettre..."
-            className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none ${
-              errors.mainMessage ? 'border-red-500' : 'border-gray-300'
+            className={`w-full px-5 py-4 rounded-2xl outline-none transition-all duration-200 resize-none ${
+              errors.mainMessage ? 'border-2 border-rose-400' : ''
             }`}
+            style={{
+              background: "#f0e2e6",
+              boxShadow: "inset 8px 8px 16px #d0b6be, inset -8px -8px 16px #ffffff",
+              color: "#5a2a46"
+            }}
             rows={4}
           />
           {errors.mainMessage && (
-            <p className="mt-1 text-sm text-red-600">{errors.mainMessage.message}</p>
+            <p className="mt-2 text-sm" style={{ color: "#c23b78" }}>{errors.mainMessage.message}</p>
           )}
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+
+        {/* Ton et Langue */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">Ton de l'e-mail</label>
+            <label className="block text-sm font-semibold mb-2 flex items-center gap-2" style={{ color: "#c23b78" }}>
+              <Sparkles className="h-4 w-4" />
+              Ton de l'e-mail
+            </label>
             <select
               {...register('tone', { required: 'Le ton est requis' })}
-              className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
-                errors.tone ? 'border-red-500' : 'border-gray-300'
+              className={`w-full px-5 py-3 rounded-xl outline-none transition-all duration-200 ${
+                errors.tone ? 'border-2 border-rose-400' : ''
               }`}
+              style={{
+                background: "#f0e2e6",
+                boxShadow: "inset 5px 5px 12px #d0b6be, inset -5px -5px 12px #ffffff",
+                color: "#5a2a46"
+              }}
             >
               {tones.map((tone) => (
-                <option key={tone.value} value={tone.value}>
+                <option key={tone.value} value={tone.value} style={{ background: "#f0e2e6" }}>
                   {tone.label}
                 </option>
               ))}
             </select>
-            {errors.tone && <p className="mt-1 text-sm text-red-600">{errors.tone.message}</p>}
+            {errors.tone && <p className="mt-1 text-sm" style={{ color: "#c23b78" }}>{errors.tone.message}</p>}
           </div>
+
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2 items-center gap-2">
-              <Globe className="h-4 w-4" />
+            <label className="block text-sm font-semibold mb-2 flex items-center gap-2" style={{ color: "#c23b78" }}>
+              <Languages className="h-4 w-4" />
               Langue de sortie
             </label>
             <select
               {...register('language', { required: 'La langue est requise' })}
-              className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
-                errors.language ? 'border-red-500' : 'border-gray-300'
+              className={`w-full px-5 py-3 rounded-xl outline-none transition-all duration-200 ${
+                errors.language ? 'border-2 border-rose-400' : ''
               }`}
+              style={{
+                background: "#f0e2e6",
+                boxShadow: "inset 5px 5px 12px #d0b6be, inset -5px -5px 12px #ffffff",
+                color: "#5a2a46"
+              }}
             >
               {languages.map((lang) => (
-                <option key={lang.code} value={lang.code}>
+                <option key={lang.code} value={lang.code} style={{ background: "#f0e2e6" }}>
                   {lang.flag} {lang.name}
                 </option>
               ))}
             </select>
             {errors.language && (
-              <p className="mt-1 text-sm text-red-600">{errors.language.message}</p>
+              <p className="mt-1 text-sm" style={{ color: "#c23b78" }}>{errors.language.message}</p>
             )}
           </div>
         </div>
-        <div className="bg-gray-50 rounded-lg p-4">
-          <h3 className="text-lg font-medium text-gray-900 mb-4 flex items-center gap-2">
-            <User className="h-5 w-5 text-gray-600" />
+
+        {/* Informations destinataire */}
+        <div
+          className="rounded-2xl p-5"
+          style={{
+            background: "#f0e2e6",
+            boxShadow: "10px 10px 20px #d0b6be, -10px -10px 20px #ffffff",
+          }}
+        >
+          <h3 className="text-lg font-bold mb-4 flex items-center gap-2" style={{ color: "#c23b78" }}>
+            <User className="h-5 w-5" />
             Informations sur le destinataire
           </h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-xs font-semibold mb-2 flex items-center gap-1" style={{ color: "#d95c92" }}>
+                <AtSign className="h-3 w-3" />
                 Nom du destinataire
               </label>
               <input
                 type="text"
                 {...register('recipientName')}
                 placeholder="Marie Dubois, M. Martin..."
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-4 py-2 rounded-xl outline-none transition-all duration-200"
+                style={{
+                  background: "#f0e2e6",
+                  boxShadow: "inset 5px 5px 12px #d0b6be, inset -5px -5px 12px #ffffff",
+                  color: "#5a2a46"
+                }}
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Genre</label>
+              <label className="block text-xs font-semibold mb-2" style={{ color: "#d95c92" }}>Genre</label>
               <select
                 {...register('recipientGender')}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-4 py-2 rounded-xl outline-none transition-all duration-200"
+                style={{
+                  background: "#f0e2e6",
+                  boxShadow: "inset 5px 5px 12px #d0b6be, inset -5px -5px 12px #ffffff",
+                  color: "#5a2a46"
+                }}
               >
                 {genders.map((gender) => (
-                  <option key={gender.value} value={gender.value}>
+                  <option key={gender.value} value={gender.value} style={{ background: "#f0e2e6" }}>
                     {gender.label}
                   </option>
                 ))}
@@ -127,45 +203,80 @@ const EmailForm = ({ formData, setFormData, handleGenerateEmail, isGenerating, t
             </div>
           </div>
           <div className="mt-4">
-            <label className="block text-sm font-medium text-gray-700 mb-2">Titre/Poste</label>
+            <label className="block text-xs font-semibold mb-2 flex items-center gap-1" style={{ color: "#d95c92" }}>
+              <Briefcase className="h-3 w-3" />
+              Titre/Poste
+            </label>
             <input
               type="text"
               {...register('recipientTitle')}
               placeholder="Directeur RH, Dr., Prof..."
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full px-4 py-2 rounded-xl outline-none transition-all duration-200"
+              style={{
+                background: "#f0e2e6",
+                boxShadow: "inset 5px 5px 12px #d0b6be, inset -5px -5px 12px #ffffff",
+                color: "#5a2a46"
+              }}
             />
           </div>
         </div>
+
+        {/* Email de réponse */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
-            E-mail auquel vous répondez (optionnel)
+          <label className="block text-sm font-semibold mb-2 flex items-center gap-2" style={{ color: "#c23b78" }}>
+            <Mail className="h-4 w-4" />
+            E-mail auquel vous répondez <span className="text-xs font-normal">(optionnel)</span>
           </label>
           <textarea
             {...register('replyToEmail')}
             placeholder="Collez ici l'e-mail original si vous répondez à un message..."
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
+            className="w-full px-5 py-3 rounded-xl outline-none transition-all duration-200 resize-none"
+            style={{
+              background: "#f0e2e6",
+              boxShadow: "inset 8px 8px 16px #d0b6be, inset -8px -8px 16px #ffffff",
+              color: "#5a2a46"
+            }}
             rows={3}
           />
         </div>
-        <button
+
+        {/* Bouton génération */}
+        <motion.button
           type="submit"
           disabled={isGenerating}
-          className="w-full bg-blue-600 text-white py-3 px-4 rounded-lg hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors font-medium flex items-center justify-center gap-2"
+          variants={buttonVariants}
+          initial="idle"
+          whileHover="hover"
+          whileTap="tap"
+          className="w-full py-4 px-4 rounded-2xl font-bold text-lg relative overflow-hidden transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+          style={{
+            background: "#f0e2e6",
+            boxShadow: "12px 12px 24px #d0b6be, -12px -12px 24px #ffffff",
+            color: "#c23b78"
+          }}
         >
-          {isGenerating ? (
-            <>
-              <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
-              Génération en cours...
-            </>
-          ) : (
-            <>
-              <Sparkles className="h-5 w-5" />
-              Générer l'e-mail
-            </>
-          )}
-        </button>
+          <div className="flex items-center justify-center gap-3 relative z-10">
+            {isGenerating ? (
+              <>
+                <motion.div 
+                  className="rounded-full h-5 w-5 border-2"
+                  style={{ borderColor: "#c23b78", borderTopColor: "transparent" }}
+                  animate={{ rotate: 360 }}
+                  transition={{ duration: 0.8, repeat: Infinity, ease: "linear" }}
+                />
+                <span>Génération en cours...</span>
+              </>
+            ) : (
+              <>
+                <Send className="h-5 w-5" />
+                <span>Générer l'e-mail</span>
+                <Sparkles className="h-4 w-4" />
+              </>
+            )}
+          </div>
+        </motion.button>
       </form>
-    </div>
+    </motion.div>
   );
 };
 

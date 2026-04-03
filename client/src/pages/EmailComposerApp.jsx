@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Header from '../components/Header';
-import LoginForm from './LoginForm';
+import LoginForm from './Login';
 import EmailForm from '../components/EmailForm';
 import GeneratedEmail from '../components/GeneratedEmail';
 import Instructions from '../components/Instructions';

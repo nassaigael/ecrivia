@@ -1,6 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { useState, useEffect } from 'react';
-// eslint-disable-next-line no-unused-vars
+import { useState, useEffect } from 'react'; 
 import { motion, AnimatePresence } from 'framer-motion';
 import { usePuterAuth } from '../hooks/usePuterAuth';
 import { User, Lock } from 'lucide-react';
