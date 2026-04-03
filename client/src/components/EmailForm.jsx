@@ -64,7 +64,7 @@ const EmailForm = ({ formData, setFormData, handleGenerateEmail, isGenerating, t
           WebkitBackgroundClip: "text",
           WebkitTextFillColor: "transparent",
         }}>
-        Composer votre e-mail
+        Formulaire de génération
       </h2>
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
@@ -83,9 +83,8 @@ const EmailForm = ({ formData, setFormData, handleGenerateEmail, isGenerating, t
               },
             })}
             placeholder="Décrivez le message que vous souhaitez transmettre..."
-            className={`w-full px-5 py-4 rounded-2xl outline-none transition-all duration-200 resize-none ${
-              errors.mainMessage ? 'border-2 border-rose-400' : ''
-            }`}
+            className={`w-full px-5 py-4 rounded-2xl outline-none transition-all duration-200 resize-none ${errors.mainMessage ? 'border-2 border-rose-400' : ''
+              }`}
             style={{
               background: "#f0e2e6",
               boxShadow: "inset 8px 8px 16px #d0b6be, inset -8px -8px 16px #ffffff",
@@ -102,14 +101,12 @@ const EmailForm = ({ formData, setFormData, handleGenerateEmail, isGenerating, t
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
           <div>
             <label className="block text-sm font-semibold mb-2 flex items-center gap-2" style={{ color: "#c23b78" }}>
-              <Sparkles className="h-4 w-4" />
               Ton de l'e-mail
             </label>
             <select
               {...register('tone', { required: 'Le ton est requis' })}
-              className={`w-full px-5 py-3 rounded-xl outline-none transition-all duration-200 ${
-                errors.tone ? 'border-2 border-rose-400' : ''
-              }`}
+              className={`w-full px-5 py-3 rounded-xl outline-none transition-all duration-200 ${errors.tone ? 'border-2 border-rose-400' : ''
+                }`}
               style={{
                 background: "#f0e2e6",
                 boxShadow: "inset 5px 5px 12px #d0b6be, inset -5px -5px 12px #ffffff",
@@ -132,9 +129,8 @@ const EmailForm = ({ formData, setFormData, handleGenerateEmail, isGenerating, t
             </label>
             <select
               {...register('language', { required: 'La langue est requise' })}
-              className={`w-full px-5 py-3 rounded-xl outline-none transition-all duration-200 ${
-                errors.language ? 'border-2 border-rose-400' : ''
-              }`}
+              className={`w-full px-5 py-3 rounded-xl outline-none transition-all duration-200 ${errors.language ? 'border-2 border-rose-400' : ''
+                }`}
               style={{
                 background: "#f0e2e6",
                 boxShadow: "inset 5px 5px 12px #d0b6be, inset -5px -5px 12px #ffffff",
@@ -258,7 +254,7 @@ const EmailForm = ({ formData, setFormData, handleGenerateEmail, isGenerating, t
           <div className="flex items-center justify-center gap-3 relative z-10">
             {isGenerating ? (
               <>
-                <motion.div 
+                <motion.div
                   className="rounded-full h-5 w-5 border-2"
                   style={{ borderColor: "#c23b78", borderTopColor: "transparent" }}
                   animate={{ rotate: 360 }}
@@ -270,7 +266,6 @@ const EmailForm = ({ formData, setFormData, handleGenerateEmail, isGenerating, t
               <>
                 <Send className="h-5 w-5" />
                 <span>Générer l'e-mail</span>
-                <Sparkles className="h-4 w-4" />
               </>
             )}
           </div>
