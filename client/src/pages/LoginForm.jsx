@@ -1,6 +1,9 @@
-import React, { useState, useEffect } from 'react';
+/* eslint-disable no-unused-vars */
+import { useState, useEffect } from 'react';
+// eslint-disable-next-line no-unused-vars
 import { motion, AnimatePresence } from 'framer-motion';
 import { usePuterAuth } from '../hooks/usePuterAuth';
+import { User, Lock } from 'lucide-react';
 import logo from '../assets/images/logo.png';
 
 const LoginForm = ({ setUserData, setIsLoggedIn }) => {
@@ -235,7 +238,7 @@ const LoginForm = ({ setUserData, setIsLoggedIn }) => {
             )}
           </AnimatePresence>
           
-          {/* Input style neumorphism enfoncé */}
+          {/* Input style neumorphism enfoncé avec icône User */}
           <motion.div 
             variants={logoVariants} 
             className="mb-8"
@@ -247,25 +250,27 @@ const LoginForm = ({ setUserData, setIsLoggedIn }) => {
                 boxShadow: "inset 8px 8px 16px #d0b6be, inset -8px -8px 16px #ffffff",
               }}
             >
-              <input
-                type="text"
-                placeholder="Nom d'utilisateur (optionnel)"
-                className="w-full px-5 py-4 rounded-xl outline-none transition-all duration-300 bg-transparent"
-                style={{
-                  color: "#8b2a5a",
-                  placeholderColor: "#d4a0b4"
-                }}
-                onFocus={(e) => {
-                  e.target.parentElement.style.boxShadow = "inset 12px 12px 24px #d0b6be, inset -12px -12px 24px #ffffff";
-                }}
-                onBlur={(e) => {
-                  e.target.parentElement.style.boxShadow = "inset 8px 8px 16px #d0b6be, inset -8px -8px 16px #ffffff";
-                }}
-              />
+              <div className="flex items-center gap-3 px-5 py-4">
+                <User className="h-5 w-5" style={{ color: "#c23b78" }} />
+                <input
+                  type="text"
+                  placeholder="Nom d'utilisateur (optionnel)"
+                  className="flex-1 rounded-xl outline-none transition-all duration-300 bg-transparent"
+                  style={{
+                    color: "#8b2a5a",
+                  }}
+                  onFocus={(e) => {
+                    e.target.parentElement.parentElement.style.boxShadow = "inset 12px 12px 24px #d0b6be, inset -12px -12px 24px #ffffff";
+                  }}
+                  onBlur={(e) => {
+                    e.target.parentElement.parentElement.style.boxShadow = "inset 8px 8px 16px #d0b6be, inset -8px -8px 16px #ffffff";
+                  }}
+                />
+              </div>
             </div>
           </motion.div>
           
-          {/* Bouton de connexion avec neumorphism extrême */}
+          {/* Bouton de connexion avec neumorphism extrême et icône LogIn */}
           <motion.div variants={logoVariants}>
             <motion.button
               onClick={handleLogin}
@@ -301,43 +306,44 @@ const LoginForm = ({ setUserData, setIsLoggedIn }) => {
                   </>
                 ) : (
                   <>
-                    <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-                    </svg>
-                    Se connecter avec Puter
+                    <span>Se connecter avec Puter</span>
                   </>
                 )}
               </div>
             </motion.button>
           </motion.div>
           
-          {/* Informations supplémentaires */}
           <motion.div 
             variants={logoVariants}
             className="text-center pt-8 mt-6"
           >
             <div
-              className="p-3 rounded-xl"
+              className="p-3 rounded-xl flex items-center justify-center gap-2"
               style={{
                 background: "#f0e2e6",
                 boxShadow: "inset 4px 4px 8px #d0b6be, inset -4px -4px 8px #ffffff",
               }}
             >
+              <Lock className="h-4 w-4" style={{ color: "#c23b78" }} />
               <p 
                 className="text-sm font-semibold"
                 style={{ color: "#c23b78" }}
               >
-                🔐 Utilisez votre compte Puter
+                Utilisez votre compte Puter
               </p>
             </div>
-            <motion.p 
-              className="text-xs mt-4 font-medium"
-              style={{ color: "#d95c92" }}
-              animate={{ opacity: [0.5, 1, 0.5], scale: [0.98, 1, 0.98] }}
+            <motion.div 
+              className="flex items-center justify-center gap-2 mt-4"
+              animate={{ opacity: [0.5, 1, 0.5] }}
               transition={{ duration: 2.5, repeat: Infinity }}
             >
-              ✨ Sans compte Puter ? Création automatique ✨
-            </motion.p>
+              <p 
+                className="text-xs font-medium"
+                style={{ color: "#d95c92" }}
+              >
+                Sans compte Puter ? Création automatique
+              </p>
+            </motion.div>
           </motion.div>
         </motion.div>
       </motion.div>
