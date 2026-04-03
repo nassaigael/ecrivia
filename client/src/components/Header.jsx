@@ -175,7 +175,7 @@ export default function Header({ userData, logout }) {
             ? "25px 25px 50px #d0b6be, -25px -25px 50px #ffffff, 0 4px 20px rgba(0,0,0,0.05)" 
             : "15px 15px 30px #d0b6be, -15px -15px 30px #ffffff",
           margin: isSticky ? "0" : "10px 20px",
-          borderRadius: isSticky ? "0 0 50px 50px" : "50px",
+          borderRadius: isSticky ? "0" : "50px",
           top: 0,
           width: isSticky ? "100%" : "auto",
         }}
@@ -201,22 +201,10 @@ export default function Header({ userData, logout }) {
               className="h-8 w-8 sm:h-10 sm:w-10 object-contain rounded-xl" 
             />
           </motion.div>
-          <motion.span 
-            className="text-lg sm:text-2xl font-bold tracking-tight hidden sm:block"
-            style={{
-              background: "linear-gradient(135deg, #c23b78, #d95c92)",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-              textShadow: "2px 2px 4px #ffffff"
-            }}
-          >
-            ECRIVIA
-          </motion.span>
           <motion.div
             animate={{ opacity: [0.5, 1, 0.5] }}
             transition={{ duration: 2, repeat: Infinity }}
           >
-            <Sparkles className="h-4 w-4 sm:h-5 sm:w-5" style={{ color: "#d95c92" }} />
           </motion.div>
         </motion.div>
 
