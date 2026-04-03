@@ -1,4 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
+// eslint-disable-next-line no-unused-vars
+import { motion, AnimatePresence } from 'framer-motion';
+import { AlertCircle, Loader2 } from 'lucide-react';
 import Header from '../components/Header';
 import LoginForm from './Login';
 import EmailForm from '../components/EmailForm';
@@ -166,13 +169,65 @@ const EmailComposerApp = () => {
     }
   }, [copySuccess]);
 
+  // Animation variants
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        duration: 0.5,
+        staggerChildren: 0.1
+      }
+    }
+  };
+
+  const errorVariants = {
+    hidden: { opacity: 0, x: 100, scale: 0.9 },
+    visible: {
+      opacity: 1,
+      x: 0,
+      scale: 1,
+      transition: { type: "spring", stiffness: 300, damping: 20 }
+    },
+    exit: {
+      opacity: 0,
+      x: 100,
+      scale: 0.9,
+      transition: { duration: 0.2 }
+    }
+  };
+
+  const loadingVariants = {
+    animate: {
+      rotate: 360,
+      transition: { duration: 1, repeat: Infinity, ease: "linear" }
+    }
+  };
+
   if (!puterInitialized) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-gray-50 flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
-          <p className="text-gray-600">Chargement de Puter.js...</p>
-        </div>
+      <div
+        className="min-h-screen flex items-center justify-center p-4"
+        style={{ background: "#f5e6ea" }}
+      >
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          className="text-center"
+        >
+          <motion.div
+            variants={loadingVariants}
+            animate="animate"
+            className="w-16 h-16 rounded-full mx-auto mb-5 flex items-center justify-center"
+            style={{
+              background: "#f0e2e6",
+              boxShadow: "15px 15px 30px #d0b6be, -15px -15px 30px #ffffff",
+            }}
+          >
+            <Loader2 className="h-8 w-8" style={{ color: "#c23b78" }} />
+          </motion.div>
+          <p className="font-medium" style={{ color: "#c23b78" }}>Chargement de Puter.js...</p>
+        </motion.div>
       </div>
     );
   }
@@ -180,19 +235,40 @@ const EmailComposerApp = () => {
   if (!isLoggedIn) {
     return (
       <>
-        {authError && (
-          <div className="fixed top-4 right-4 bg-red-500 text-white p-4 rounded-lg z-50 shadow-lg">
-            <div className="flex items-center justify-between">
-              <span>{authError}</span>
+        <AnimatePresence>
+          {authError && (
+            <motion.div
+              variants={errorVariants}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+              className="fixed top-6 right-6 z-50 px-5 py-3 rounded-xl flex items-center gap-3 shadow-2xl"
+              style={{
+                background: "#f0e2e6",
+                boxShadow: "15px 15px 30px #d0b6be, -15px -15px 30px #ffffff",
+                border: "1px solid rgba(194,59,120,0.3)"
+              }}
+            >
+              <div
+                className="rounded-full p-1"
+                style={{
+                  background: "#e06a9e",
+                  boxShadow: "inset 2px 2px 4px #b84a7a, inset -2px -2px 4px #ff8aba"
+                }}
+              >
+                <AlertCircle className="h-4 w-4 text-white" />
+              </div>
+              <span className="text-sm font-semibold" style={{ color: "#c23b78" }}>{authError}</span>
               <button
                 onClick={() => setAuthError('')}
-                className="ml-3 text-white hover:text-gray-200"
+                className="ml-2 text-sm font-bold"
+                style={{ color: "#c23b78" }}
               >
                 ×
               </button>
-            </div>
-          </div>
-        )}
+            </motion.div>
+          )}
+        </AnimatePresence>
         <LoginForm
           setUserData={setUserData}
           setIsLoggedIn={setIsLoggedIn}
@@ -202,23 +278,54 @@ const EmailComposerApp = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-gray-50">
-      {authError && (
-        <div className="fixed top-4 right-4 bg-red-500 text-white p-4 rounded-lg z-50 shadow-lg">
-          <div className="flex items-center justify-between">
-            <span>{authError}</span>
+    <div
+      className="min-h-screen"
+      style={{ background: "#f5e6ea" }}
+    >
+      <AnimatePresence>
+        {authError && (
+          <motion.div
+            variants={errorVariants}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+            className="fixed top-6 right-6 z-50 px-5 py-3 rounded-xl flex items-center gap-3 shadow-2xl"
+            style={{
+              background: "#f0e2e6",
+              boxShadow: "15px 15px 30px #d0b6be, -15px -15px 30px #ffffff",
+              border: "1px solid rgba(194,59,120,0.3)"
+            }}
+          >
+            <div
+              className="rounded-full p-1"
+              style={{
+                background: "#e06a9e",
+                boxShadow: "inset 2px 2px 4px #b84a7a, inset -2px -2px 4px #ff8aba"
+              }}
+            >
+              <AlertCircle className="h-4 w-4 text-white" />
+            </div>
+            <span className="text-sm font-semibold" style={{ color: "#c23b78" }}>{authError}</span>
             <button
               onClick={() => setAuthError('')}
-              className="ml-3 text-white hover:text-gray-200"
+              className="ml-2 text-sm font-bold"
+              style={{ color: "#c23b78" }}
             >
               ×
             </button>
-          </div>
-        </div>
-      )}
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       <Header userData={userData} logout={handleLogout} />
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+
+      <motion.div
+        variants={containerVariants}
+        initial="hidden"
+        animate="visible"
+        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 md:py-8"
+      >
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8">
           <EmailForm
             formData={formData}
             setFormData={setFormData}
@@ -236,7 +343,7 @@ const EmailComposerApp = () => {
           />
         </div>
         <Instructions />
-      </div>
+      </motion.div>
     </div>
   );
 };
