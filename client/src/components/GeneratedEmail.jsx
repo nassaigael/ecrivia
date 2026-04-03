@@ -151,7 +151,7 @@ const GeneratedEmail = ({ generatedEmail, setGeneratedEmail, copySuccess, setCop
       {/* En-tête */}
       <motion.div
         variants={headerVariants}
-        className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6"
+        className="flex flex-row items-start sm:items-center justify-between gap-4 mb-6"
       >
         <motion.h2
           className="text-2xl md:text-3xl font-bold flex items-center gap-3"
@@ -283,9 +283,7 @@ const GeneratedEmail = ({ generatedEmail, setGeneratedEmail, copySuccess, setCop
                   boxShadow: "inset 4px 4px 8px #d0b6be, inset -4px -4px 8px #ffffff",
                 }}
               >
-                <Sparkles className="h-4 w-4" style={{ color: "#d95c92" }} />
                 <span className="text-xs font-medium" style={{ color: "#c23b78" }}>L'IA rédige pour vous</span>
-                <Sparkles className="h-4 w-4" style={{ color: "#d95c92" }} />
               </div>
             </motion.div>
           </motion.div>
