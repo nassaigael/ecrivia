@@ -1,10 +1,27 @@
-import React, { useRef } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 // eslint-disable-next-line no-unused-vars
 import { motion, AnimatePresence } from 'framer-motion';
 import { Copy, Mail, CheckCircle, Sparkles, FileText, Check } from 'lucide-react';
 
 const GeneratedEmail = ({ generatedEmail, setGeneratedEmail, copySuccess, setCopySuccess }) => {
   const textareaRef = useRef(null);
+  const containerRef = useRef(null);
+  const [, setTextareaHeight] = useState('550px');
+
+  useEffect(() => {
+    const updateHeight = () => {
+      if (containerRef.current) {
+        const containerHeight = containerRef.current.clientHeight;
+        const newHeight = containerHeight * 0.7;
+        setTextareaHeight(`${newHeight}px`);
+      }
+    };
+
+    updateHeight();
+    window.addEventListener('resize', updateHeight);
+    
+    return () => window.removeEventListener('resize', updateHeight);
+  }, [generatedEmail]);
 
   const handleCopyToClipboard = async () => {
     try {
@@ -139,19 +156,21 @@ const GeneratedEmail = ({ generatedEmail, setGeneratedEmail, copySuccess, setCop
 
   return (
     <motion.div
+      ref={containerRef}
       variants={containerVariants}
       initial="hidden"
       animate="visible"
-      className="rounded-[40px] p-6 md:p-8"
+      className="rounded-[40px] p-6 md:p-8 flex flex-col"
       style={{
         background: "#f0e2e6",
         boxShadow: "25px 25px 50px #d0b6be, -25px -25px 50px #ffffff",
+        height: "100%",
+        minHeight: "600px"
       }}
     >
-      {/* En-tête */}
       <motion.div
         variants={headerVariants}
-        className="flex flex-row items-start sm:items-center justify-between gap-4 mb-6"
+        className="flex flex-row items-start sm:items-center justify-between gap-4 mb-6 flex-shrink-0"
       >
         <motion.h2
           className="text-2xl md:text-3xl font-bold flex items-center gap-3"
@@ -173,7 +192,7 @@ const GeneratedEmail = ({ generatedEmail, setGeneratedEmail, copySuccess, setCop
             initial="idle"
             whileHover="hover"
             whileTap="tap"
-            className="px-5 py-2.5 rounded-xl font-semibold flex items-center gap-2 transition-all duration-200"
+            className="px-5 py-2.5 rounded-xl font-semibold flex items-center gap-2 transition-all duration-200 flex-shrink-0"
             style={{
               background: copySuccess ? "#d95c92" : "#f0e2e6",
               boxShadow: copySuccess
@@ -197,7 +216,6 @@ const GeneratedEmail = ({ generatedEmail, setGeneratedEmail, copySuccess, setCop
         )}
       </motion.div>
 
-      {/* Contenu principal avec animation d'apparition */}
       <AnimatePresence mode="wait">
         {generatedEmail ? (
           <motion.div
@@ -206,10 +224,11 @@ const GeneratedEmail = ({ generatedEmail, setGeneratedEmail, copySuccess, setCop
             initial="hidden"
             animate="visible"
             exit="exit"
-            className="rounded-2xl p-1"
+            className="rounded-2xl p-1 flex-1"
             style={{
               background: "#f0e2e6",
               boxShadow: "inset 12px 12px 24px #d0b6be, inset -12px -12px 24px #ffffff",
+              height: "70%"
             }}
           >
             <textarea
@@ -221,9 +240,9 @@ const GeneratedEmail = ({ generatedEmail, setGeneratedEmail, copySuccess, setCop
                 color: "#5a2a46",
                 fontSize: "14px",
                 lineHeight: "1.7",
-                minHeight: "400px"
+                fontFamily: "monospace",
+                height: "100%"
               }}
-              rows={22}
               placeholder="Votre e-mail généré apparaîtra ici..."
             />
           </motion.div>
@@ -234,10 +253,15 @@ const GeneratedEmail = ({ generatedEmail, setGeneratedEmail, copySuccess, setCop
             initial="hidden"
             animate="visible"
             exit="exit"
-            className="rounded-2xl p-8 md:p-12 text-center"
+            className="rounded-2xl p-8 md:p-12 text-center flex-1"
             style={{
               background: "#f0e2e6",
               boxShadow: "inset 12px 12px 24px #d0b6be, inset -12px -12px 24px #ffffff",
+              height: "70%",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center"
             }}
           >
             <motion.div
@@ -283,14 +307,15 @@ const GeneratedEmail = ({ generatedEmail, setGeneratedEmail, copySuccess, setCop
                   boxShadow: "inset 4px 4px 8px #d0b6be, inset -4px -4px 8px #ffffff",
                 }}
               >
+                <Sparkles className="h-4 w-4" style={{ color: "#d95c92" }} />
                 <span className="text-xs font-medium" style={{ color: "#c23b78" }}>L'IA rédige pour vous</span>
+                <Sparkles className="h-4 w-4" style={{ color: "#d95c92" }} />
               </div>
             </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
 
-      {/* Notification toast animée en thème rose */}
       <AnimatePresence>
         {copySuccess && (
           <motion.div
@@ -312,10 +337,10 @@ const GeneratedEmail = ({ generatedEmail, setGeneratedEmail, copySuccess, setCop
                 boxShadow: "inset 3px 3px 6px #b84a7a, inset -3px -3px 6px #ff6eaa"
               }}
             >
-              <CheckCircle className="h-4 w-4 text-white" />
+              <Check className="h-4 w-4 text-white" />
             </div>
             <span className="text-sm font-semibold" style={{ color: "#c23b78" }}>
-              Copié dans le presse-papier !
+              Email copié dans le presse-papier !
             </span>
             <motion.div
               animate={{ rotate: 360 }}
