@@ -74,7 +74,7 @@ const EmailForm = ({ formData, setFormData, handleGenerateEmail, isGenerating, t
             {errors.tone && <p className="mt-1 text-sm text-red-600">{errors.tone.message}</p>}
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2 flex items-center gap-2">
+            <label className="block text-sm font-medium text-gray-700 mb-2 items-center gap-2">
               <Globe className="h-4 w-4" />
               Langue de sortie
             </label>
