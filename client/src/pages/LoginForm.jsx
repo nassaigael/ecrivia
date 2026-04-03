@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {  AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { usePuterAuth } from '../hooks/usePuterAuth';
 import logo from '../assets/images/logo.png';
 
@@ -15,7 +15,6 @@ const LoginForm = ({ setUserData, setIsLoggedIn }) => {
         if (user) {
           handlePuterUser(user);
         }
-      // eslint-disable-next-line no-unused-vars
       } catch (err) {
         console.log('Pas de session Puter existante');
       }
@@ -66,45 +65,42 @@ const LoginForm = ({ setUserData, setIsLoggedIn }) => {
     }
   };
 
-  // Animations variants
   const containerVariants = {
-    hidden: { opacity: 0, scale: 0.95 },
-    visible: { 
-      opacity: 1, 
-      scale: 1,
-      transition: { 
-        duration: 0.6, 
-        ease: "easeOut",
-        staggerChildren: 0.2
-      }
-    },
-    exit: { 
-      opacity: 0, 
-      scale: 0.95,
-      transition: { duration: 0.4 }
-    }
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
+    hidden: { opacity: 0, y: 50 },
     visible: { 
       opacity: 1, 
       y: 0,
-      transition: { duration: 0.5, ease: "easeOut" }
+      transition: { 
+        duration: 0.6, 
+        ease: [0.25, 0.46, 0.45, 0.94]
+      }
     }
   };
 
   const logoVariants = {
-    hidden: { opacity: 0, rotate: -10, scale: 0.8 },
+    hidden: { opacity: 0, scale: 0.5, rotate: -10 },
     visible: { 
       opacity: 1, 
-      rotate: 0, 
-      scale: 1,
+      scale: 1, 
+      rotate: 0,
       transition: { 
         duration: 0.6, 
         type: "spring",
-        stiffness: 200,
-        damping: 15
+        stiffness: 260,
+        damping: 20
+      }
+    }
+  };
+
+  const cardVariants = {
+    hidden: { opacity: 0, scale: 0.9 },
+    visible: { 
+      opacity: 1, 
+      scale: 1,
+      transition: { 
+        duration: 0.5, 
+        delay: 0.1,
+        ease: [0.25, 0.46, 0.45, 0.94]
       }
     }
   };
@@ -112,122 +108,115 @@ const LoginForm = ({ setUserData, setIsLoggedIn }) => {
   const buttonVariants = {
     idle: { 
       scale: 1,
-      boxShadow: "9px 9px 16px #c9a0b5, -9px -9px 16px #ffccdd"
+      boxShadow: "12px 12px 24px #d4b0bc, -12px -12px 24px #ffffff"
     },
     hover: { 
-      scale: 1.02,
-      boxShadow: "13px 13px 20px #c9a0b5, -13px -13px 20px #ffccdd",
+      scale: 1.03,
+      boxShadow: "16px 16px 32px #d4b0bc, -16px -16px 32px #ffffff",
       transition: { duration: 0.2 }
     },
     tap: { 
-      scale: 0.98,
-      boxShadow: "5px 5px 10px #c9a0b5, -5px -5px 10px #ffccdd",
+      scale: 0.96,
+      boxShadow: "6px 6px 12px #d4b0bc, -6px -6px 12px #ffffff",
       transition: { duration: 0.1 }
     }
   };
 
   const errorVariants = {
-    hidden: { opacity: 0, x: -20, height: 0 },
+    hidden: { opacity: 0, y: -15, height: 0 },
     visible: { 
       opacity: 1, 
-      x: 0, 
+      y: 0, 
       height: "auto",
-      transition: { duration: 0.3, ease: "easeOut" }
+      transition: { duration: 0.3, type: "spring", stiffness: 300 }
     },
     exit: { 
       opacity: 0, 
-      x: 20, 
+      y: -15, 
       height: 0,
       transition: { duration: 0.2 }
     }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4"
+    <div 
+      className="min-h-screen flex items-center justify-center p-4"
       style={{
-        background: "linear-gradient(135deg, #ffb6c1 0%, #ff69b4 50%, #f34b9f 100%)"
+        background: "#f5e6ea"
       }}
     >
       <motion.div
         variants={containerVariants}
         initial="hidden"
         animate="visible"
-        exit="exit"
-        className="max-w-md w-full"
+        className="w-full max-w-md"
       >
-        {/* Carte Neumorphism */}
+        {/* Carte Neumorphism ultra prononcé */}
         <motion.div 
-          variants={itemVariants}
-          className="relative rounded-[40px] p-8"
+          variants={cardVariants}
+          className="rounded-[60px] p-10"
           style={{
-            background: "#ffb6c1",
-            boxShadow: "20px 20px 40px #c9a0b5, -20px -20px 40px #ffccdd",
+            background: "#f0e2e6",
+            boxShadow: "35px 35px 70px #d0b6be, -35px -35px 70px #ffffff",
           }}
         >
-          {/* Effet de brillance premium */}
-          <motion.div 
-            className="absolute -top-px -left-px right-0 bottom-0 rounded-[40px] pointer-events-none"
-            style={{
-              background: "radial-gradient(circle at 30% 20%, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0) 70%)",
-            }}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.5, duration: 0.8 }}
-          />
-
-          {/* Logo avec animation */}
+          {/* Logo section avec relief maximal */}
           <motion.div 
             variants={logoVariants}
-            className="text-center mb-8 flex flex-col items-center gap-4"
+            className="text-center mb-10 flex flex-col items-center gap-5"
           >
             <motion.div
-              whileHover={{ scale: 1.05, rotate: 5 }}
-              transition={{ type: "spring", stiffness: 300 }}
+              whileHover={{ scale: 1.08, rotate: 3 }}
+              transition={{ type: "spring", stiffness: 400, damping: 12 }}
               className="relative"
             >
-              <img 
-                src={logo} 
-                width={70} 
-                height={70} 
-                className="rounded-2xl"
-                alt="Logo ECRIVIA" 
-              />
-              <motion.div 
-                className="absolute -inset-1 rounded-2xl"
+              <div
+                className="rounded-3xl p-4"
                 style={{
-                  background: "linear-gradient(135deg, #ff69b4, #ffb6c1)",
-                  opacity: 0.5,
-                  filter: "blur(8px)",
-                  zIndex: -1
+                  background: "#f0e2e6",
+                  boxShadow: "15px 15px 30px #d0b6be, -15px -15px 30px #ffffff",
                 }}
-                animate={{ 
-                  scale: [1, 1.1, 1],
-                  opacity: [0.5, 0.8, 0.5]
-                }}
-                transition={{ 
-                  duration: 2, 
-                  repeat: Infinity,
-                  repeatType: "reverse"
+              >
+                <img 
+                  src={logo} 
+                  width={70} 
+                  height={70} 
+                  className="rounded-2xl"
+                  alt="Logo ECRIVIA" 
+                />
+              </div>
+              {/* Effet de brillance supplémentaire */}
+              <div
+                className="absolute inset-0 rounded-3xl pointer-events-none"
+                style={{
+                  background: "radial-gradient(circle at 30% 30%, rgba(255,255,255,0.6) 0%, rgba(255,255,255,0) 70%)",
                 }}
               />
             </motion.div>
             
-            <motion.div variants={itemVariants}>
-              <h1 className="text-3xl font-bold mb-2"
+            <div>
+              <h1 
+                className="text-4xl font-bold mb-3 tracking-tight"
                 style={{
-                  background: "linear-gradient(135deg, #f34b9f, #ff69b4)",
-                  WebkitBackgroundClip: "text",
-                  WebkitTextFillColor: "transparent",
-                  textShadow: "2px 2px 4px rgba(0,0,0,0.05)"
+                  color: "#c23b78",
+                  textShadow: "3px 3px 6px #ffffff, -2px -2px 4px #d0b6be"
                 }}
               >
                 ECRIVIA
               </h1>
-              <p className="text-gray-700 font-medium">Générateur d'emails intelligent</p>
-            </motion.div>
+              <p 
+                className="font-medium text-lg"
+                style={{
+                  color: "#d95c92",
+                  textShadow: "2px 2px 3px #ffffff, -1px -1px 2px #d0b6be"
+                }}
+              >
+                Générateur d'emails intelligent
+              </p>
+            </div>
           </motion.div>
           
-          {/* Message d'erreur animé */}
+          {/* Message d'erreur avec neumorphism inset */}
           <AnimatePresence>
             {error && (
               <motion.div
@@ -235,20 +224,49 @@ const LoginForm = ({ setUserData, setIsLoggedIn }) => {
                 initial="hidden"
                 animate="visible"
                 exit="exit"
-                className="mb-6 p-3 rounded-xl"
+                className="mb-6 p-4 rounded-2xl overflow-hidden"
                 style={{
-                  background: "#ffb6c1",
-                  boxShadow: "inset 5px 5px 10px #c9a0b5, inset -5px -5px 10px #ffccdd",
-                  border: "1px solid rgba(243,75,159,0.3)"
+                  background: "#f0e2e6",
+                  boxShadow: "inset 8px 8px 16px #d0b6be, inset -8px -8px 16px #ffffff",
                 }}
               >
-                <p className="text-red-700 text-sm text-center font-medium">{error}</p>
+                <p className="text-rose-700 text-sm text-center font-semibold">{error}</p>
               </motion.div>
             )}
           </AnimatePresence>
           
-          {/* Bouton de connexion */}
-          <motion.div variants={itemVariants}>
+          {/* Input style neumorphism enfoncé */}
+          <motion.div 
+            variants={logoVariants} 
+            className="mb-8"
+          >
+            <div
+              className="rounded-2xl p-1"
+              style={{
+                background: "#f0e2e6",
+                boxShadow: "inset 8px 8px 16px #d0b6be, inset -8px -8px 16px #ffffff",
+              }}
+            >
+              <input
+                type="text"
+                placeholder="Nom d'utilisateur (optionnel)"
+                className="w-full px-5 py-4 rounded-xl outline-none transition-all duration-300 bg-transparent"
+                style={{
+                  color: "#8b2a5a",
+                  placeholderColor: "#d4a0b4"
+                }}
+                onFocus={(e) => {
+                  e.target.parentElement.style.boxShadow = "inset 12px 12px 24px #d0b6be, inset -12px -12px 24px #ffffff";
+                }}
+                onBlur={(e) => {
+                  e.target.parentElement.style.boxShadow = "inset 8px 8px 16px #d0b6be, inset -8px -8px 16px #ffffff";
+                }}
+              />
+            </div>
+          </motion.div>
+          
+          {/* Bouton de connexion avec neumorphism extrême */}
+          <motion.div variants={logoVariants}>
             <motion.button
               onClick={handleLogin}
               disabled={loading}
@@ -256,41 +274,36 @@ const LoginForm = ({ setUserData, setIsLoggedIn }) => {
               initial="idle"
               whileHover="hover"
               whileTap="tap"
-              animate={loading ? "idle" : undefined}
-              className="w-full py-3 px-4 rounded-xl font-semibold text-white relative overflow-hidden"
+              className="w-full py-4 px-4 rounded-2xl font-bold text-lg relative overflow-hidden transition-all duration-200"
               style={{
-                background: "linear-gradient(135deg, #ff69b4, #f34b9f)",
-                boxShadow: "9px 9px 16px #c9a0b5, -9px -9px 16px #ffccdd",
+                background: "#f0e2e6",
+                boxShadow: "12px 12px 24px #d4b0bc, -12px -12px 24px #ffffff",
+                color: "#c23b78"
               }}
             >
-              {/* Effet de vague au hover */}
+              {/* Effet de brillance au hover */}
               <motion.div
-                className="absolute inset-0 bg-white opacity-0"
-                whileHover={{ opacity: 0.15 }}
-                transition={{ duration: 0.2 }}
+                className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/30 to-white/0"
+                whileHover={{ x: ["0%", "100%"] }}
+                transition={{ duration: 0.6, repeat: Infinity, repeatDelay: 1 }}
               />
               
               <div className="flex items-center justify-center gap-3 relative z-10">
                 {loading ? (
                   <>
                     <motion.div 
-                      className="animate-spin rounded-full h-5 w-5 border-2 border-white border-t-transparent"
+                      className="rounded-full h-5 w-5 border-3"
+                      style={{ borderColor: "#c23b78", borderTopColor: "transparent" }}
                       animate={{ rotate: 360 }}
-                      transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                      transition={{ duration: 0.8, repeat: Infinity, ease: "linear" }}
                     />
                     <span>Connexion en cours...</span>
                   </>
                 ) : (
                   <>
-                    <motion.svg 
-                      className="h-5 w-5" 
-                      fill="currentColor" 
-                      viewBox="0 0 24 24"
-                      animate={{ scale: [1, 1.1, 1] }}
-                      transition={{ duration: 2, repeat: Infinity }}
-                    >
+                    <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
                       <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-                    </motion.svg>
+                    </svg>
                     Se connecter avec Puter
                   </>
                 )}
@@ -300,21 +313,30 @@ const LoginForm = ({ setUserData, setIsLoggedIn }) => {
           
           {/* Informations supplémentaires */}
           <motion.div 
-            variants={itemVariants}
-            className="text-center pt-6 mt-4 border-t"
-            style={{
-              borderColor: "rgba(243,75,159,0.2)"
-            }}
+            variants={logoVariants}
+            className="text-center pt-8 mt-6"
           >
-            <p className="text-sm text-gray-700 font-medium">
-              Utilisez votre compte Puter pour accéder à ECRIVIA
-            </p>
-            <motion.p 
-              className="text-xs text-gray-600 mt-2"
-              animate={{ opacity: [0.7, 1, 0.7] }}
-              transition={{ duration: 2, repeat: Infinity }}
+            <div
+              className="p-3 rounded-xl"
+              style={{
+                background: "#f0e2e6",
+                boxShadow: "inset 4px 4px 8px #d0b6be, inset -4px -4px 8px #ffffff",
+              }}
             >
-              ✨ Si vous n'avez pas de compte, il sera créé automatiquement ✨
+              <p 
+                className="text-sm font-semibold"
+                style={{ color: "#c23b78" }}
+              >
+                🔐 Utilisez votre compte Puter
+              </p>
+            </div>
+            <motion.p 
+              className="text-xs mt-4 font-medium"
+              style={{ color: "#d95c92" }}
+              animate={{ opacity: [0.5, 1, 0.5], scale: [0.98, 1, 0.98] }}
+              transition={{ duration: 2.5, repeat: Infinity }}
+            >
+              ✨ Sans compte Puter ? Création automatique ✨
             </motion.p>
           </motion.div>
         </motion.div>
