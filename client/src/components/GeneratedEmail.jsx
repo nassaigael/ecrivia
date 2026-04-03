@@ -39,7 +39,6 @@ const GeneratedEmail = ({ generatedEmail, setGeneratedEmail, copySuccess, setCop
     }
   };
 
-
   const copyButtonVariants = {
     idle: {
       scale: 1,
@@ -176,9 +175,9 @@ const GeneratedEmail = ({ generatedEmail, setGeneratedEmail, copySuccess, setCop
             whileTap="tap"
             className="px-5 py-2.5 rounded-xl font-semibold flex items-center gap-2 transition-all duration-200"
             style={{
-              background: copySuccess ? "#4CAF50" : "#f0e2e6",
+              background: copySuccess ? "#d95c92" : "#f0e2e6",
               boxShadow: copySuccess
-                ? "10px 10px 20px #388E3C, -10px -10px 20px #66BB6A"
+                ? "10px 10px 20px #b84a7a, -10px -10px 20px #ff6eaa"
                 : "8px 8px 16px #d0b6be, -8px -8px 16px #ffffff",
               color: copySuccess ? "#ffffff" : "#c23b78"
             }}
@@ -222,9 +221,9 @@ const GeneratedEmail = ({ generatedEmail, setGeneratedEmail, copySuccess, setCop
                 color: "#5a2a46",
                 fontSize: "14px",
                 lineHeight: "1.7",
-                fontFamily: "monospace"
+                minHeight: "400px"
               }}
-              rows={15}
+              rows={22}
               placeholder="Votre e-mail généré apparaîtra ici..."
             />
           </motion.div>
@@ -284,14 +283,16 @@ const GeneratedEmail = ({ generatedEmail, setGeneratedEmail, copySuccess, setCop
                   boxShadow: "inset 4px 4px 8px #d0b6be, inset -4px -4px 8px #ffffff",
                 }}
               >
+                <Sparkles className="h-4 w-4" style={{ color: "#d95c92" }} />
                 <span className="text-xs font-medium" style={{ color: "#c23b78" }}>L'IA rédige pour vous</span>
+                <Sparkles className="h-4 w-4" style={{ color: "#d95c92" }} />
               </div>
             </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
 
-      {/* Notification toast animée */}
+      {/* Notification toast animée en thème rose */}
       <AnimatePresence>
         {copySuccess && (
           <motion.div
@@ -303,20 +304,20 @@ const GeneratedEmail = ({ generatedEmail, setGeneratedEmail, copySuccess, setCop
             style={{
               background: "#f0e2e6",
               boxShadow: "15px 15px 30px #d0b6be, -15px -15px 30px #ffffff",
-              border: "1px solid rgba(194,59,120,0.2)"
+              border: "1px solid rgba(194,59,120,0.3)"
             }}
           >
             <div
-              className="rounded-full p-1"
+              className="rounded-full p-1.5"
               style={{
-                background: "#4CAF50",
-                boxShadow: "inset 2px 2px 4px #388E3C, inset -2px -2px 4px #66BB6A"
+                background: "#d95c92",
+                boxShadow: "inset 3px 3px 6px #b84a7a, inset -3px -3px 6px #ff6eaa"
               }}
             >
-              <Check className="h-4 w-4 text-white" />
+              <CheckCircle className="h-4 w-4 text-white" />
             </div>
             <span className="text-sm font-semibold" style={{ color: "#c23b78" }}>
-              Email copié dans le presse-papier !
+              Copié dans le presse-papier !
             </span>
             <motion.div
               animate={{ rotate: 360 }}
