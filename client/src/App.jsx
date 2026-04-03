@@ -1,5 +1,4 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import './App.css';
 import EmailComposerApp from './pages/EmailComposerApp';
 import LandingPage from './pages/LandingPage';
 
