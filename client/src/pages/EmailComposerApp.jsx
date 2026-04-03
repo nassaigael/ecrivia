@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 // eslint-disable-next-line no-unused-vars
 import { motion, AnimatePresence } from 'framer-motion';
 import { AlertCircle, Loader2 } from 'lucide-react';
@@ -10,6 +11,7 @@ import Instructions from '../components/Instructions';
 import { generateEmailWithPuter } from '../utils/generateEmailWithPuter';
 
 const EmailComposerApp = () => {
+  const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userData, setUserData] = useState({
     name: '',
@@ -158,7 +160,7 @@ const EmailComposerApp = () => {
     console.log('Déconnexion application réussie');
 
     setTimeout(() => {
-      window.location.reload();
+      navigate('/');
     }, 100);
   };
 
