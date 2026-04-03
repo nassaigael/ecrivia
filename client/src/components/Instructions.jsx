@@ -1,7 +1,5 @@
-import React from 'react';
 // eslint-disable-next-line no-unused-vars
 import { motion } from 'framer-motion';
-import { Edit3, Globe, Send, Sparkles } from 'lucide-react';
 
 const Instructions = () => {
   const containerVariants = {
@@ -28,19 +26,16 @@ const Instructions = () => {
   const steps = [
     {
       number: 1,
-      icon: Edit3,
       title: "Décrivez votre message principal",
       description: "et sélectionnez le ton souhaité"
     },
     {
       number: 2,
-      icon: Globe,
       title: "Choisissez la langue de sortie",
       description: "et renseignez les informations du destinataire"
     },
     {
       number: 3,
-      icon: Send,
       title: "Générez votre e-mail avec Puter",
       description: "et copiez-le dans votre client de messagerie"
     }
@@ -98,17 +93,6 @@ const Instructions = () => {
               >
                 {step.number}
               </motion.div>
-
-              {/* Icône */}
-              <div
-                className="rounded-xl p-2"
-                style={{
-                  background: "#f0e2e6",
-                  boxShadow: "inset 4px 4px 8px #d0b6be, inset -4px -4px 8px #ffffff",
-                }}
-              >
-                <step.icon className="h-5 w-5" style={{ color: "#d95c92" }} />
-              </div>
 
               {/* Texte */}
               <div>
