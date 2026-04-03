@@ -166,18 +166,18 @@ export default function Header({ userData, logout }) {
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.5, type: "spring", stiffness: 200, damping: 20 }}
-        className={`px-4 sm:px-6 py-3 sm:py-4 flex justify-between items-center z-50 transition-all duration-300 ${
+        className={`w-full px-4 sm:px-6 lg:px-8 py-3 sm:py-4 flex justify-between items-center z-50 transition-all duration-300 ${
           isSticky ? 'fixed top-0 left-0 right-0' : 'relative'
         }`}
         style={{
           background: "#f0e2e6",
           boxShadow: isSticky 
-            ? "25px 25px 50px #d0b6be, -25px -25px 50px #ffffff, 0 4px 20px rgba(0,0,0,0.05)" 
+            ? "0 4px 20px rgba(0,0,0,0.05), 25px 25px 50px #d0b6be, -25px -25px 50px #ffffff" 
             : "15px 15px 30px #d0b6be, -15px -15px 30px #ffffff",
-          margin: isSticky ? "0" : "10px 20px",
+          margin: isSticky ? "0" : "0",
           borderRadius: isSticky ? "0" : "50px",
           top: 0,
-          width: isSticky ? "100%" : "auto",
+          maxWidth: isSticky ? "100%" : "100%",
         }}
       >
         {/* Logo section */}
