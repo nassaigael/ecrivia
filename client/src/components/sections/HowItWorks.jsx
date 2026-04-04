@@ -98,11 +98,11 @@ const HowItWorks = () => {
                     variants={titleVariants}
                     initial="hidden"
                     animate={isInView ? "visible" : "hidden"}
-                    className="text-center mb-16"
+                    className="text-center mb-12 md:mb-16"
                 >
                     <div className="inline-block">
                         <h2
-                            className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4"
+                            className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4"
                             style={{
                                 background: "linear-gradient(135deg, #c23b78, #d95c92, #e07aa3)",
                                 WebkitBackgroundClip: "text",
@@ -113,14 +113,14 @@ const HowItWorks = () => {
                             Comment ça marche
                         </h2>
                         <div
-                            className="w-24 h-1 mx-auto rounded-full"
+                            className="w-20 md:w-24 h-1 mx-auto rounded-full"
                             style={{
                                 background: "linear-gradient(90deg, #c23b78, #d95c92, #e07aa3)",
                                 boxShadow: "2px 2px 4px #d0b6be, -2px -2px 4px #ffffff"
                             }}
                         />
                     </div>
-                    <p className="text-base sm:text-lg max-w-2xl mx-auto mt-4" style={{ color: "#8a5a6a" }}>
+                    <p className="text-sm sm:text-base md:text-lg max-w-2xl mx-auto mt-3 md:mt-4" style={{ color: "#8a5a6a" }}>
                         3 étapes simples pour des emails professionnels
                     </p>
                 </motion.div>
@@ -138,12 +138,11 @@ const HowItWorks = () => {
                     />
                 </div>
 
-                {/* Étapes */}
                 <motion.div
                     variants={containerVariants}
                     initial="hidden"
                     animate={isInView ? "visible" : "hidden"}
-                    className="relative z-10 flex flex-col lg:flex-row justify-between gap-8 lg:gap-6"
+                    className="relative z-10 flex flex-col lg:flex-row justify-between gap-5 md:gap-6 lg:gap-6"
                 >
                     {steps.map((step, index) => {
                         const Icon = step.icon;
@@ -154,39 +153,37 @@ const HowItWorks = () => {
                                 className="flex-1"
                             >
                                 <div
-                                    className="relative rounded-3xl p-8 text-center h-full transition-all duration-300 group"
+                                    className="relative rounded-2xl md:rounded-3xl p-5 md:p-8 text-center h-full transition-all duration-300 group"
                                     style={{
                                         background: "#f0e2e6",
-                                        boxShadow: "25px 25px 50px #d0b6be, -25px -25px 50px #ffffff",
+                                        boxShadow: "15px 15px 30px #d0b6be, -15px -15px 30px #ffffff",
                                     }}
                                 >
                                     <div
-                                        className="absolute inset-0 flex items-center justify-center text-[15rem] font-black opacity-12 pointer-events-none"
+                                        className="absolute inset-0 flex items-center justify-center text-[8rem] md:text-[12rem] lg:text-[15rem] font-black opacity-12 md:opacity-12 pointer-events-none"
                                         style={{ color: step.color }}
                                     >
                                         {step.number}
                                     </div>
 
-                                    <div className="relative z-10 flex flex-col items-center justify-center min-h-[350px]">
-                                      
-
+                                    <div className="relative z-10 flex flex-col items-center justify-center min-h-[250px] md:min-h-[300px] lg:min-h-[350px]">
                                         <motion.div
                                             whileHover={{ scale: 1.1, y: -5 }}
                                             transition={{ type: "spring", stiffness: 300 }}
-                                            className="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-5"
+                                            className="w-12 h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 rounded-xl md:rounded-2xl flex items-center justify-center mx-auto mb-3 md:mb-4 lg:mb-5"
                                             style={{
                                                 background: "#f0e2e6",
-                                                boxShadow: "8px 8px 16px #d0b6be, -8px -8px 16px #ffffff",
+                                                boxShadow: "6px 6px 12px #d0b6be, -6px -6px 12px #ffffff",
                                             }}
                                         >
-                                            <Icon className="h-8 w-8" style={{ color: step.color }} />
+                                            <Icon className="h-6 w-6 md:h-7 md:w-7 lg:h-8 lg:w-8" style={{ color: step.color }} />
                                         </motion.div>
 
-                                        <h3 className="text-xl font-bold mb-3" style={{ color: "#c23b78" }}>
+                                        <h3 className="text-base md:text-lg lg:text-xl font-bold mb-2 md:mb-3" style={{ color: "#c23b78" }}>
                                             {step.title}
                                         </h3>
 
-                                        <p className="text-sm leading-relaxed" style={{ color: "#a86a8a" }}>
+                                        <p className="text-xs md:text-sm leading-relaxed px-2 md:px-0" style={{ color: "#a86a8a" }}>
                                             {step.description}
                                         </p>
                                     </div>
@@ -214,20 +211,20 @@ const HowItWorks = () => {
                     initial={{ opacity: 0, y: 30 }}
                     animate={isInView ? { opacity: 1, y: 0 } : {}}
                     transition={{ delay: 0.8, duration: 0.5 }}
-                    className="mt-16 text-center"
+                    className="mt-12 md:mt-16 text-center"
                 >
                     <div
-                        className="inline-flex items-center gap-3 px-6 py-3 rounded-full"
+                        className="inline-flex items-center gap-2 md:gap-3 px-4 md:px-6 py-2 md:py-3 rounded-full"
                         style={{
                             background: "#f0e2e6",
                             boxShadow: "inset 6px 6px 12px #d0b6be, inset -6px -6px 12px #ffffff",
                         }}
                     >
-                        <CheckCircle className="h-5 w-5" style={{ color: "#d95c92" }} />
-                        <span className="text-sm font-medium" style={{ color: "#c23b78" }}>
+                        <CheckCircle className="h-4 w-4 md:h-5 md:w-5" style={{ color: "#d95c92" }} />
+                        <span className="text-xs md:text-sm font-medium" style={{ color: "#c23b78" }}>
                             Aucune inscription requise pour essayer
                         </span>
-                        <MailCheck className="h-5 w-5" style={{ color: "#d95c92" }} />
+                        <MailCheck className="h-4 w-4 md:h-5 md:w-5" style={{ color: "#d95c92" }} />
                     </div>
                 </motion.div>
             </div>
