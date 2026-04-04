@@ -3,11 +3,11 @@ import { useNavigate } from 'react-router-dom';
 // eslint-disable-next-line no-unused-vars
 import { motion, AnimatePresence } from 'framer-motion';
 import { AlertCircle, Loader2 } from 'lucide-react';
-import Header from '../components/Header';
+import Header from '../components/layout/Header';
 import LoginForm from './Login';
-import EmailForm from '../components/EmailForm';
-import GeneratedEmail from '../components/GeneratedEmail';
-import Instructions from '../components/Instructions';
+import EmailForm from '../components/layout/EmailForm';
+import GeneratedEmail from '../components/layout/GeneratedEmail';
+import Instructions from '../components/layout/Instructions';
 import { generateEmailWithPuter } from '../utils/generateEmailWithPuter';
 
 const EmailComposerApp = () => {
