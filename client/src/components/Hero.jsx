@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Sparkles, Mail, Zap, ArrowRight, Edit3, Globe, Star, Clock } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import Logo from '../assets/images/logo.png';
 
 const Hero = () => {
   const navigate = useNavigate();
@@ -166,7 +167,11 @@ const Hero = () => {
                 boxShadow: "20px 20px 40px #d0b6be, -20px -20px 40px #ffffff",
               }}
             >
-              <Mail className="h-20 w-20 sm:h-24 sm:w-24" style={{ color: "#c23b78" }} />
+              <img
+                src={Logo}
+                alt="ECRIVIA"
+                className="h-20 w-20 sm:h-24 sm:w-24 object-contain rounded-xl"
+              />
             </div>
           </div>
         </motion.div>
