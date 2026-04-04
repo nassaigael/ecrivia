@@ -5,12 +5,12 @@ import {
   Heart,
   Linkedin,
   Mail,
-  Sparkles,
   Globe,
   Zap,
   Star,
   Briefcase
 } from 'lucide-react';
+import Logo from '../../assets/logo.png';
 
 const Footer = () => {
   const navigate = useNavigate();
@@ -60,7 +60,6 @@ const Footer = () => {
         borderTop: "1px solid rgba(194,59,120,0.15)"
       }}
     >
-      {/* Décoration de fond */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] rounded-full blur-3xl opacity-5"
           style={{ background: "radial-gradient(circle, #c23b78, transparent)" }}
@@ -68,10 +67,8 @@ const Footer = () => {
       </div>
 
       <div className="max-w-7xl mx-auto relative z-10">
-        {/* Grille principale - centrée sur mobile */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 md:gap-10 mb-12 text-center sm:text-left">
 
-          {/* Brand section */}
           <div className="flex flex-col items-center sm:items-start">
             <div className="flex items-center gap-2 mb-4">
               <div
@@ -81,7 +78,11 @@ const Footer = () => {
                   boxShadow: "8px 8px 16px #d0b6be, -8px -8px 16px #ffffff",
                 }}
               >
-                <Sparkles className="h-5 w-5" style={{ color: "#c23b78" }} />
+                <img
+                  src={Logo}
+                  alt="ECRIVIA"
+                  className="h-5 w-5 object-contain rounded-lg"
+                />
               </div>
               <span
                 className="text-xl font-bold"
@@ -105,12 +106,11 @@ const Footer = () => {
               }}
             >
               <Zap className="h-3.5 w-3.5" style={{ color: "#d95c92" }} />
-              <span className="text-xs font-medium" style={{ color: "#c23b78" }}>IA Powered by Puter.ai</span>
+              <span className="text-xs font-medium" style={{ color: "#c23b78" }}>IA Powered by Puter.JS</span>
               <Star className="h-3 w-3" style={{ color: "#e07aa3" }} />
             </div>
           </div>
 
-          {/* Navigation links */}
           <div className="flex flex-col items-center sm:items-start">
             <h3
               className="font-bold mb-4 text-base relative inline-block pb-2"
@@ -151,7 +151,6 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Social links - icônes cachées sur mobile */}
           <div className="flex flex-col items-center sm:items-start">
             <h3
               className="font-bold mb-4 text-base relative inline-block pb-2"
@@ -191,7 +190,6 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Contact info - icônes cachées sur mobile */}
           <div className="flex flex-col items-center sm:items-start">
             <h3
               className="font-bold mb-4 text-base relative inline-block pb-2"
@@ -219,7 +217,7 @@ const Footer = () => {
                   >
                     <Mail className="h-4 w-4" style={{ color: "#d95c92" }} />
                   </div>
-                  <span>contact@ecrivia.com</span>
+                  <span>gael.ramahandrisoa@gmail.com</span>
                 </a>
               </li>
               <li>
@@ -233,14 +231,13 @@ const Footer = () => {
                   >
                     <Globe className="h-4 w-4" style={{ color: "#d95c92" }} />
                   </div>
-                  <span style={{ color: "#a86a8a" }}>ecrivia.com</span>
+                  <span style={{ color: "#a86a8a" }}>ecrivia.onrender.com</span>
                 </div>
               </li>
             </ul>
           </div>
         </div>
 
-        {/* Développé par section - premium */}
         <div
           className="pt-10 mt-6 text-center border-t"
           style={{ borderColor: "#e0c0d0" }}
