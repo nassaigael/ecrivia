@@ -151,7 +151,7 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Social links */}
+          {/* Social links - icônes cachées sur mobile */}
           <div className="flex flex-col items-center sm:items-start">
             <h3
               className="font-bold mb-4 text-base relative inline-block pb-2"
@@ -174,7 +174,7 @@ const Footer = () => {
                     style={{ color: "#a86a8a" }}
                   >
                     <div
-                      className="p-1.5 rounded-lg transition-all duration-300 group-hover:shadow-lg"
+                      className="p-1.5 rounded-lg transition-all duration-300 group-hover:shadow-lg hidden sm:block"
                       style={{
                         background: "#f0e2e6",
                         boxShadow: "4px 4px 8px #d0b6be, -4px -4px 8px #ffffff",
@@ -191,7 +191,7 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Contact info */}
+          {/* Contact info - icônes cachées sur mobile */}
           <div className="flex flex-col items-center sm:items-start">
             <h3
               className="font-bold mb-4 text-base relative inline-block pb-2"
@@ -211,7 +211,7 @@ const Footer = () => {
                   style={{ color: "#a86a8a" }}
                 >
                   <div
-                    className="p-1.5 rounded-lg transition-all duration-300"
+                    className="p-1.5 rounded-lg transition-all duration-300 hidden sm:block"
                     style={{
                       background: "#f0e2e6",
                       boxShadow: "4px 4px 8px #d0b6be, -4px -4px 8px #ffffff",
@@ -225,7 +225,7 @@ const Footer = () => {
               <li>
                 <div className="flex items-center justify-center sm:justify-start gap-2 text-sm">
                   <div
-                    className="p-1.5 rounded-lg"
+                    className="p-1.5 rounded-lg hidden sm:block"
                     style={{
                       background: "#f0e2e6",
                       boxShadow: "inset 3px 3px 6px #d0b6be, inset -3px -3px 6px #ffffff",
