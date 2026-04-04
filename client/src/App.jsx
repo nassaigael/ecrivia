@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import EmailComposerApp from './pages/EmailComposerApp';
 import LandingPage from './pages/LandingPage';
+import './index.css';
 
 function App() {
   return (

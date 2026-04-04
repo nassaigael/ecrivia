@@ -1,5 +1,6 @@
 import LandingHeader from '../components/LandingHeader';
 import Hero from '../components/Hero';
+import Features from '../components/Features';
 
 const LandingPage = () => {
   return (
@@ -7,9 +8,7 @@ const LandingPage = () => {
       <LandingHeader />
       <Hero />
       {/* Autres sections avec des id pour la navigation */}
-      <section id="features">
-        {/* Section fonctionnalités à venir */}
-      </section>
+      <Features />
       <section id="how-it-works">
         {/* Section comment ça marche à venir */}
       </section>
