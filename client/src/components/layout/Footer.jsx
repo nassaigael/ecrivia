@@ -1,13 +1,15 @@
+// eslint-disable-next-line no-unused-vars
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import {
   Heart,
   Linkedin,
-  Github,
   Mail,
   Sparkles,
   Globe,
-  Zap
+  Zap,
+  Star,
+  Briefcase
 } from 'lucide-react';
 
 const Footer = () => {
@@ -28,19 +30,16 @@ const Footer = () => {
       icon: Linkedin,
       href: "https://www.linkedin.com/in/nassaigael/",
       label: "LinkedIn",
-      color: "#0077b5"
     },
     {
-      icon: Github,
-      href: "https://github.com/nassaigael",
-      label: "GitHub",
-      color: "#333333"
+      icon: Briefcase,
+      href: "https://nassaigael.github.io",
+      label: "Portfolio",
     },
     {
       icon: Mail,
-      href: "mailto:gael@ecrivia.com",
+      href: "mailto:gael.ramahandrisoa@gmail.com",
       label: "Email",
-      color: "#c23b78"
     }
   ];
 
@@ -57,21 +56,29 @@ const Footer = () => {
       animate="visible"
       className="relative overflow-hidden px-4 sm:px-6 lg:px-8 pt-16 pb-8"
       style={{
-        background: "#f0e2e6",
-        borderTop: "1px solid rgba(194,59,120,0.1)"
+        background: "linear-gradient(135deg, #f0e2e6 0%, #e8d8de 100%)",
+        borderTop: "1px solid rgba(194,59,120,0.15)"
       }}
     >
-      <div className="max-w-7xl mx-auto">
-        {/* Grille principale */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+      {/* Décoration de fond */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] rounded-full blur-3xl opacity-5"
+          style={{ background: "radial-gradient(circle, #c23b78, transparent)" }}
+        />
+      </div>
+
+      <div className="max-w-7xl mx-auto relative z-10">
+        {/* Grille principale - centrée sur mobile */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 md:gap-10 mb-12 text-center sm:text-left">
+
           {/* Brand section */}
-          <div className="md:col-span-1">
+          <div className="flex flex-col items-center sm:items-start">
             <div className="flex items-center gap-2 mb-4">
               <div
-                className="rounded-xl p-1.5"
+                className="rounded-xl p-2"
                 style={{
                   background: "#f0e2e6",
-                  boxShadow: "6px 6px 12px #d0b6be, -6px -6px 12px #ffffff",
+                  boxShadow: "8px 8px 16px #d0b6be, -8px -8px 16px #ffffff",
                 }}
               >
                 <Sparkles className="h-5 w-5" style={{ color: "#c23b78" }} />
@@ -79,7 +86,7 @@ const Footer = () => {
               <span
                 className="text-xl font-bold"
                 style={{
-                  background: "linear-gradient(135deg, #c23b78, #d95c92)",
+                  background: "linear-gradient(135deg, #c23b78, #d95c92, #e07aa3)",
                   WebkitBackgroundClip: "text",
                   WebkitTextFillColor: "transparent",
                 }}
@@ -87,31 +94,41 @@ const Footer = () => {
                 ECRIVIA
               </span>
             </div>
-            <p className="text-sm mb-4" style={{ color: "#a86a8a" }}>
+            <p className="text-sm mb-4 max-w-xs text-center sm:text-left" style={{ color: "#a86a8a" }}>
               Générez des emails professionnels en quelques secondes grâce à l'intelligence artificielle.
             </p>
             <div
-              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full"
               style={{
                 background: "#f0e2e6",
-                boxShadow: "inset 4px 4px 8px #d0b6be, inset -4px -4px 8px #ffffff",
+                boxShadow: "inset 5px 5px 10px #d0b6be, inset -5px -5px 10px #ffffff",
               }}
             >
-              <Zap className="h-3 w-3" style={{ color: "#d95c92" }} />
-              <span className="text-xs" style={{ color: "#c23b78" }}>IA Powered by Puter.ai</span>
+              <Zap className="h-3.5 w-3.5" style={{ color: "#d95c92" }} />
+              <span className="text-xs font-medium" style={{ color: "#c23b78" }}>IA Powered by Puter.ai</span>
+              <Star className="h-3 w-3" style={{ color: "#e07aa3" }} />
             </div>
           </div>
 
           {/* Navigation links */}
-          <div>
-            <h3 className="font-semibold mb-4" style={{ color: "#c23b78" }}>Navigation</h3>
-            <ul className="space-y-2">
+          <div className="flex flex-col items-center sm:items-start">
+            <h3
+              className="font-bold mb-4 text-base relative inline-block pb-2"
+              style={{ color: "#c23b78" }}
+            >
+              Navigation
+              <div
+                className="absolute bottom-0 left-1/2 sm:left-0 -translate-x-1/2 sm:translate-x-0 w-8 h-0.5 rounded-full"
+                style={{ background: "linear-gradient(90deg, #c23b78, #d95c92)" }}
+              />
+            </h3>
+            <ul className="space-y-3">
               {navLinks.map((link) => (
                 <li key={link.name}>
                   {link.isRouter ? (
                     <button
                       onClick={() => navigate(link.href)}
-                      className="text-sm transition-colors hover:opacity-70"
+                      className="text-sm transition-all duration-300 hover:translate-x-1 hover:opacity-80"
                       style={{ color: "#a86a8a" }}
                     >
                       {link.name}
@@ -119,7 +136,7 @@ const Footer = () => {
                   ) : (
                     <a
                       href={link.href}
-                      className="text-sm transition-colors hover:opacity-70"
+                      className="text-sm transition-all duration-300 hover:translate-x-1 hover:opacity-80 inline-block"
                       style={{ color: "#a86a8a" }}
                       onClick={(e) => {
                         e.preventDefault();
@@ -135,20 +152,39 @@ const Footer = () => {
           </div>
 
           {/* Social links */}
-          <div>
-            <h3 className="font-semibold mb-4" style={{ color: "#c23b78" }}>Suivez-nous</h3>
-            <ul className="space-y-2">
+          <div className="flex flex-col items-center sm:items-start">
+            <h3
+              className="font-bold mb-4 text-base relative inline-block pb-2"
+              style={{ color: "#c23b78" }}
+            >
+              Suivez-moi
+              <div
+                className="absolute bottom-0 left-1/2 sm:left-0 -translate-x-1/2 sm:translate-x-0 w-8 h-0.5 rounded-full"
+                style={{ background: "linear-gradient(90deg, #c23b78, #d95c92)" }}
+              />
+            </h3>
+            <ul className="space-y-3">
               {socialLinks.map((social) => (
                 <li key={social.label}>
                   <a
                     href={social.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-2 text-sm transition-all duration-300 hover:translate-x-1"
+                    className="flex items-center justify-center sm:justify-start gap-3 text-sm transition-all duration-300 hover:scale-105 group"
                     style={{ color: "#a86a8a" }}
                   >
-                    <social.icon className="h-4 w-4" style={{ color: social.color }} />
-                    <span>{social.label}</span>
+                    <div
+                      className="p-1.5 rounded-lg transition-all duration-300 group-hover:shadow-lg"
+                      style={{
+                        background: "#f0e2e6",
+                        boxShadow: "4px 4px 8px #d0b6be, -4px -4px 8px #ffffff",
+                      }}
+                    >
+                      <social.icon className="h-4 w-4" style={{ color: "#d95c92" }} />
+                    </div>
+                    <span className="group-hover:translate-x-1 transition-transform duration-300">
+                      {social.label}
+                    </span>
                   </a>
                 </li>
               ))}
@@ -156,49 +192,80 @@ const Footer = () => {
           </div>
 
           {/* Contact info */}
-          <div>
-            <h3 className="font-semibold mb-4" style={{ color: "#c23b78" }}>Contact</h3>
-            <ul className="space-y-2">
+          <div className="flex flex-col items-center sm:items-start">
+            <h3
+              className="font-bold mb-4 text-base relative inline-block pb-2"
+              style={{ color: "#c23b78" }}
+            >
+              Contact
+              <div
+                className="absolute bottom-0 left-1/2 sm:left-0 -translate-x-1/2 sm:translate-x-0 w-8 h-0.5 rounded-full"
+                style={{ background: "linear-gradient(90deg, #c23b78, #d95c92)" }}
+              />
+            </h3>
+            <ul className="space-y-3">
               <li>
                 <a
                   href="mailto:contact@ecrivia.com"
-                  className="text-sm transition-colors hover:opacity-70 flex items-center gap-2"
+                  className="flex items-center justify-center sm:justify-start gap-2 text-sm transition-all duration-300 hover:scale-105 group"
                   style={{ color: "#a86a8a" }}
                 >
-                  <Mail className="h-4 w-4" style={{ color: "#d95c92" }} />
-                  contact@ecrivia.com
+                  <div
+                    className="p-1.5 rounded-lg transition-all duration-300"
+                    style={{
+                      background: "#f0e2e6",
+                      boxShadow: "4px 4px 8px #d0b6be, -4px -4px 8px #ffffff",
+                    }}
+                  >
+                    <Mail className="h-4 w-4" style={{ color: "#d95c92" }} />
+                  </div>
+                  <span>contact@ecrivia.com</span>
                 </a>
               </li>
               <li>
-                <span className="text-sm flex items-center gap-2" style={{ color: "#a86a8a" }}>
-                  <Globe className="h-4 w-4" style={{ color: "#d95c92" }} />
-                  ecrivia.com
-                </span>
+                <div className="flex items-center justify-center sm:justify-start gap-2 text-sm">
+                  <div
+                    className="p-1.5 rounded-lg"
+                    style={{
+                      background: "#f0e2e6",
+                      boxShadow: "inset 3px 3px 6px #d0b6be, inset -3px -3px 6px #ffffff",
+                    }}
+                  >
+                    <Globe className="h-4 w-4" style={{ color: "#d95c92" }} />
+                  </div>
+                  <span style={{ color: "#a86a8a" }}>ecrivia.com</span>
+                </div>
               </li>
             </ul>
           </div>
         </div>
 
-        {/* Développé par section */}
+        {/* Développé par section - premium */}
         <div
-          className="pt-8 mt-4 text-center border-t"
+          className="pt-10 mt-6 text-center border-t"
           style={{ borderColor: "#e0c0d0" }}
         >
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-2 text-sm">
-            <span style={{ color: "#a86a8a" }}>Développé avec</span>
+          <div
+            className="inline-flex flex-wrap items-center justify-center gap-2 px-6 py-3 rounded-full mb-4"
+            style={{
+              background: "#f0e2e6",
+              boxShadow: "inset 6px 6px 12px #d0b6be, inset -6px -6px 12px #ffffff",
+            }}
+          >
+            <span className="text-sm" style={{ color: "#a86a8a" }}>Développé avec</span>
             <motion.div
-              animate={{ scale: [1, 1.2, 1] }}
-              transition={{ duration: 1.5, repeat: Infinity }}
+              animate={{ scale: [1, 1.3, 1] }}
+              transition={{ duration: 1.2, repeat: Infinity, repeatDelay: 1 }}
             >
               <Heart className="h-4 w-4" style={{ color: "#d95c92", fill: "#d95c92" }} />
             </motion.div>
-            <span style={{ color: "#a86a8a" }}>par</span>
+            <span className="text-sm" style={{ color: "#a86a8a" }}>par</span>
             <motion.a
               href="https://www.linkedin.com/in/nassaigael/"
               target="_blank"
               rel="noopener noreferrer"
               whileHover={{ scale: 1.05 }}
-              className="font-semibold transition-all duration-300"
+              className="font-bold text-sm transition-all duration-300"
               style={{
                 background: "linear-gradient(135deg, #c23b78, #d95c92)",
                 WebkitBackgroundClip: "text",
@@ -207,21 +274,15 @@ const Footer = () => {
             >
               Gaël RAMAHANDRISOA
             </motion.a>
-            <span style={{ color: "#a86a8a" }}>|</span>
-            <a
-              href="https://github.com/nassaigael"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="transition-colors hover:opacity-70 flex items-center gap-1"
-              style={{ color: "#a86a8a" }}
-            >
-              <Github className="h-3 w-3" />
-              <span>Portfolio</span>
-            </a>
           </div>
-          <p className="text-xs mt-4" style={{ color: "#c9a0b5" }}>
-            © {currentYear} ECRIVIA - Tous droits réservés
-          </p>
+
+          <div className="flex flex-wrap items-center justify-center gap-3 text-xs" style={{ color: "#c9a0b5" }}>
+            <span>© {currentYear} ECRIVIA</span>
+            <span>•</span>
+            <span>Tous droits réservés</span>
+            <span>•</span>
+            <span>Version 1.0.0</span>
+          </div>
         </div>
       </div>
     </motion.footer>
