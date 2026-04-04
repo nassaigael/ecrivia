@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Sparkles, Mail, Zap, ArrowRight, Edit3, Globe, Star, Clock, Cpu, Shield, Rocket } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import Logo from '../assets/images/logo.png';
+import Logo from '../../assets/images/logo.png';
 
 const Hero = () => {
   const navigate = useNavigate();

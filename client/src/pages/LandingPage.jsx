@@ -1,6 +1,7 @@
 import LandingHeader from '../components/LandingHeader';
-import Hero from '../components/Hero';
-import Features from '../components/Features';
+import Hero from '../components/sections/Hero';
+import Features from '../components/sections/Features';
+import HowItWorks from '../components/sections/HowItWorks';
 
 const LandingPage = () => {
   return (
@@ -9,9 +10,7 @@ const LandingPage = () => {
       <Hero />
       {/* Autres sections avec des id pour la navigation */}
       <Features />
-      <section id="how-it-works">
-        {/* Section comment ça marche à venir */}
-      </section>
+      <HowItWorks />
     </div>
   );
 };
