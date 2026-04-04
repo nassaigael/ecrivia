@@ -1,27 +1,54 @@
 import { useEffect, useState } from 'react';
 // eslint-disable-next-line no-unused-vars
-import { motion } from 'framer-motion';
-import { Sparkles, Mail, Zap, ArrowRight, Edit3, Globe, Star, Clock } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Sparkles, Mail, Zap, ArrowRight, Edit3, Globe, Star, Clock, Cpu, Shield, Rocket } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import Logo from '../assets/images/logo.png';
 
 const Hero = () => {
   const navigate = useNavigate();
-  const [typedText, setTypedText] = useState('');
-  const fullText = 'Générez des emails professionnels en quelques secondes';
+  const [displayText, setDisplayText] = useState('');
+  const [phraseIndex, setPhraseIndex] = useState(0);
+  const [isDeleting, setIsDeleting] = useState(false);
   const [currentStatIndex, setCurrentStatIndex] = useState(0);
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const phrases = [
+    { text: "Générez des emails professionnels en quelques secondes", icon: Zap },
+    { text: "Plus de 11 langues supportées", icon: Globe },
+    { text: "5 tons différents pour chaque situation", icon: Edit3 },
+    { text: "IA puissante pour des emails percutants", icon: Cpu },
+    { text: "Sécurisé et confidentiel", icon: Shield }
+  ];
+
+  // Typing animation with delete effect
   useEffect(() => {
-    let index = 0;
-    const interval = setInterval(() => {
-      setTypedText(fullText.substring(0, index + 1));
-      index++;
-      if (index === fullText.length) {
-        clearInterval(interval);
+    const currentPhrase = phrases[phraseIndex].text;
+
+    if (isDeleting) {
+      if (displayText.length === 0) {
+        setIsDeleting(false);
+        setPhraseIndex((prev) => (prev + 1) % phrases.length);
+      } else {
+        const timeout = setTimeout(() => {
+          setDisplayText(displayText.slice(0, -1));
+        }, 50);
+        return () => clearTimeout(timeout);
       }
-    }, 50);
-    return () => clearInterval(interval);
-  }, []);
+    } else {
+      if (displayText.length === currentPhrase.length) {
+        const timeout = setTimeout(() => {
+          setIsDeleting(true);
+        }, 2000);
+        return () => clearTimeout(timeout);
+      } else {
+        const timeout = setTimeout(() => {
+          setDisplayText(currentPhrase.slice(0, displayText.length + 1));
+        }, 50);
+        return () => clearTimeout(timeout);
+      }
+    }
+  }, [displayText, isDeleting, phraseIndex, phrases]);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -77,6 +104,8 @@ const Hero = () => {
     { value: "98%", label: "Satisfaction", icon: Star }
   ];
 
+  const CurrentIcon = phrases[phraseIndex].icon;
+
   return (
     <motion.section
       variants={containerVariants}
@@ -88,7 +117,6 @@ const Hero = () => {
         minHeight: "100vh"
       }}
     >
-      {/* Icônes flottantes décoratives */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <motion.div
           custom={0}
@@ -114,7 +142,7 @@ const Hero = () => {
             background: "#f0e2e6",
             boxShadow: "10px 10px 20px #d0b6be, -10px -10px 20px #ffffff"
           }}>
-            <Edit3 className="h-12 w-12" style={{ color: "#d95c92" }} />
+            <Mail className="h-12 w-12" style={{ color: "#d95c92" }} />
           </div>
         </motion.div>
 
@@ -128,7 +156,7 @@ const Hero = () => {
             background: "#f0e2e6",
             boxShadow: "6px 6px 12px #d0b6be, -6px -6px 12px #ffffff"
           }}>
-            <Sparkles className="h-8 w-8" style={{ color: "#c23b78" }} />
+            <Mail className="h-8 w-8" style={{ color: "#c23b78" }} />
           </div>
         </motion.div>
 
@@ -142,13 +170,12 @@ const Hero = () => {
             background: "#f0e2e6",
             boxShadow: "6px 6px 12px #d0b6be, -6px -6px 12px #ffffff"
           }}>
-            <Globe className="h-8 w-8" style={{ color: "#e07aa3" }} />
+            <Mail className="h-8 w-8" style={{ color: "#e07aa3" }} />
           </div>
         </motion.div>
       </div>
 
       <div className="max-w-7xl mx-auto text-center relative z-10">
-        {/* Logo animé avec effet de glow */}
         <motion.div
           variants={itemVariants}
           className="flex justify-center mb-8"
@@ -176,7 +203,6 @@ const Hero = () => {
           </div>
         </motion.div>
 
-        {/* Titre principal avec effet de texte */}
         <motion.h1
           variants={itemVariants}
           className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold mb-6 leading-[1.2]"
@@ -206,27 +232,43 @@ const Hero = () => {
           </span>
         </motion.h1>
 
-        {/* Texte tapé à la machine amélioré */}
         <motion.div
           variants={itemVariants}
           className="flex justify-center mb-6"
         >
           <div
-            className="inline-flex items-center gap-3 px-6 py-3 rounded-full"
+            className="inline-flex items-center gap-3 px-6 py-3 rounded-full transition-all duration-300"
             style={{
               background: "#f0e2e6",
               boxShadow: "inset 6px 6px 12px #d0b6be, inset -6px -6px 12px #ffffff",
             }}
           >
-            <Clock className="h-4 w-4 sm:h-5 sm:w-5" style={{ color: "#d95c92" }} />
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={phraseIndex}
+                initial={{ rotate: -180, opacity: 0, scale: 0 }}
+                animate={{ rotate: 0, opacity: 1, scale: 1 }}
+                exit={{ rotate: 180, opacity: 0, scale: 0 }}
+                transition={{ duration: 0.4, type: "spring" }}
+              >
+                <CurrentIcon className="h-5 w-5 sm:h-6 sm:w-6" style={{ color: "#d95c92" }} />
+              </motion.div>
+            </AnimatePresence>
+
             <p className="text-base sm:text-lg md:text-xl font-medium" style={{ color: "#a86a8a" }}>
-              <span>{typedText}</span>
-              <span className="animate-pulse ml-0.5" style={{ color: "#c23b78" }}>|</span>
+              <span>{displayText}</span>
+              <motion.span
+                animate={{ opacity: [1, 0, 1] }}
+                transition={{ duration: 0.8, repeat: Infinity }}
+                className="ml-0.5 inline-block"
+                style={{ color: "#c23b78" }}
+              >
+                |
+              </motion.span>
             </p>
           </div>
         </motion.div>
 
-        {/* Description */}
         <motion.p
           variants={itemVariants}
           className="text-sm sm:text-base md:text-lg max-w-2xl mx-auto mb-10 leading-relaxed px-4"
@@ -239,7 +281,6 @@ const Hero = () => {
           </span>
         </motion.p>
 
-        {/* Boutons CTA */}
         <motion.div
           variants={itemVariants}
           className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16"
@@ -257,7 +298,7 @@ const Hero = () => {
             }}
           >
             <span className="relative z-10 flex items-center gap-2 text-sm sm:text-base">
-              <Zap className="h-4 w-4 sm:h-5 sm:w-5" />
+              <Rocket className="h-4 w-4 sm:h-5 sm:w-5" />
               Commencer gratuitement
               <ArrowRight className="h-3 w-3 sm:h-4 sm:w-4 group-hover:translate-x-1 transition-transform" />
             </span>
@@ -289,7 +330,6 @@ const Hero = () => {
           </motion.button>
         </motion.div>
 
-        {/* Statistiques animées */}
         <motion.div
           variants={itemVariants}
           className="flex flex-wrap justify-center gap-6 md:gap-12 lg:gap-16 pt-8 border-t"
