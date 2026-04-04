@@ -9,11 +9,37 @@ const LandingHeader = () => {
   const navigate = useNavigate();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState('home');
 
+  // Détection de la section active au scroll
   useEffect(() => {
+    const sections = ['features', 'how-it-works'];
+
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
+
+      // Déterminer la section active
+      const scrollPosition = window.scrollY + 100;
+
+      for (const section of sections) {
+        const element = document.getElementById(section);
+        if (element) {
+          const offsetTop = element.offsetTop;
+          const offsetBottom = offsetTop + element.offsetHeight;
+
+          if (scrollPosition >= offsetTop && scrollPosition < offsetBottom) {
+            setActiveSection(section);
+            break;
+          }
+        }
+      }
+
+      // Si en haut de page
+      if (window.scrollY < 100) {
+        setActiveSection('home');
+      }
     };
+
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -38,9 +64,9 @@ const LandingHeader = () => {
       opacity: 1,
       y: 0,
       scale: 1,
-      transition: { 
-        type: "spring", 
-        stiffness: 400, 
+      transition: {
+        type: "spring",
+        stiffness: 400,
         damping: 30,
         staggerChildren: 0.05,
         delayChildren: 0.1
@@ -63,21 +89,29 @@ const LandingHeader = () => {
     }
   };
 
+  // Fonction pour scroller vers une section
+  const scrollToSection = (sectionId) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      setActiveSection(sectionId);
+    }
+  };
+
   return (
     <motion.header
       variants={headerVariants}
       initial="hidden"
       animate="visible"
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        isScrolled ? 'py-3' : 'py-5'
-      }`}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${isScrolled ? 'py-3' : 'py-5'
+        }`}
       style={{
-        background: isScrolled 
-          ? "rgba(240, 226, 230, 0.95)" 
+        background: isScrolled
+          ? "rgba(240, 226, 230, 0.95)"
           : "transparent",
         backdropFilter: isScrolled ? "blur(12px)" : "none",
-        boxShadow: isScrolled 
-          ? "0 8px 32px rgba(0,0,0,0.08), 15px 15px 30px #d0b6be, -15px -15px 30px #ffffff" 
+        boxShadow: isScrolled
+          ? "0 8px 32px rgba(0,0,0,0.08), 15px 15px 30px #d0b6be, -15px -15px 30px #ffffff"
           : "none",
         borderBottom: isScrolled ? "1px solid rgba(194,59,120,0.1)" : "none"
       }}
@@ -90,7 +124,10 @@ const LandingHeader = () => {
             whileHover="hover"
             whileTap="tap"
             className="flex items-center gap-2 cursor-pointer group"
-            onClick={() => navigate('/')}
+            onClick={() => {
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+              setActiveSection('home');
+            }}
           >
             <div
               className="rounded-2xl p-2 transition-all duration-300 group-hover:shadow-xl"
@@ -99,10 +136,10 @@ const LandingHeader = () => {
                 boxShadow: "8px 8px 16px #d0b6be, -8px -8px 16px #ffffff",
               }}
             >
-              <img 
-                src={Logo} 
-                alt="ECRIVIA" 
-                className="h-8 w-8 sm:h-9 sm:w-9 object-contain rounded-lg" 
+              <img
+                src={Logo}
+                alt="ECRIVIA"
+                className="h-8 w-8 sm:h-9 sm:w-9 object-contain rounded-lg"
               />
             </div>
             <span
@@ -118,44 +155,54 @@ const LandingHeader = () => {
             </span>
           </motion.div>
 
-          {/* Navigation Desktop */}
+          {/* Navigation Desktop avec indicateur actif */}
           <nav className="hidden md:flex items-center gap-8">
             <motion.a
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.98 }}
-              href="#features"
-              className="text-sm font-medium transition-all duration-300 cursor-pointer flex items-center gap-1 group"
-              style={{ color: "#c23b78" }}
-              onClick={(e) => {
-                e.preventDefault();
-                document.getElementById('features')?.scrollIntoView({ 
-                  behavior: 'smooth',
-                  block: 'start'
-                });
+              onClick={() => scrollToSection('features')}
+              className="relative text-sm font-medium transition-all duration-300 cursor-pointer flex items-center gap-1 group"
+              style={{
+                color: activeSection === 'features' ? "#d95c92" : "#c23b78"
               }}
             >
               <span>Fonctionnalités</span>
               <ChevronRight className="h-3 w-3 opacity-0 group-hover:opacity-100 transition-opacity" />
+
+              {/* Indicateur actif */}
+              {activeSection === 'features' && (
+                <motion.div
+                  layoutId="activeSection"
+                  className="absolute -bottom-1 left-0 right-0 h-0.5 rounded-full"
+                  style={{ background: "linear-gradient(90deg, #c23b78, #d95c92)" }}
+                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                />
+              )}
             </motion.a>
-            
+
             <motion.a
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.98 }}
-              href="#how-it-works"
-              className="text-sm font-medium transition-all duration-300 cursor-pointer flex items-center gap-1 group"
-              style={{ color: "#c23b78" }}
-              onClick={(e) => {
-                e.preventDefault();
-                document.getElementById('how-it-works')?.scrollIntoView({ 
-                  behavior: 'smooth',
-                  block: 'start'
-                });
+              onClick={() => scrollToSection('how-it-works')}
+              className="relative text-sm font-medium transition-all duration-300 cursor-pointer flex items-center gap-1 group"
+              style={{
+                color: activeSection === 'how-it-works' ? "#d95c92" : "#c23b78"
               }}
             >
               <span>Comment ça marche</span>
               <ChevronRight className="h-3 w-3 opacity-0 group-hover:opacity-100 transition-opacity" />
+
+              {/* Indicateur actif */}
+              {activeSection === 'how-it-works' && (
+                <motion.div
+                  layoutId="activeSection"
+                  className="absolute -bottom-1 left-0 right-0 h-0.5 rounded-full"
+                  style={{ background: "linear-gradient(90deg, #c23b78, #d95c92)" }}
+                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                />
+              )}
             </motion.a>
-            
+
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.98 }}
@@ -184,7 +231,7 @@ const LandingHeader = () => {
             className="md:hidden p-3 rounded-xl transition-all duration-300"
             style={{
               background: "#f0e2e6",
-              boxShadow: isMobileMenuOpen 
+              boxShadow: isMobileMenuOpen
                 ? "inset 6px 6px 12px #d0b6be, inset -6px -6px 12px #ffffff"
                 : "8px 8px 16px #d0b6be, -8px -8px 16px #ffffff",
             }}
@@ -197,7 +244,7 @@ const LandingHeader = () => {
           </motion.button>
         </div>
 
-        {/* Menu mobile - Neumorphism premium */}
+        {/* Menu mobile - Neumorphism premium avec indicateur actif */}
         <AnimatePresence>
           {isMobileMenuOpen && (
             <motion.div
@@ -236,22 +283,24 @@ const LandingHeader = () => {
                 </div>
               </div>
 
-              {/* Navigation mobile */}
+              {/* Navigation mobile avec indicateur actif */}
               <nav className="p-4 flex flex-col gap-2">
                 <motion.a
                   variants={mobileItemVariants}
                   whileTap={{ scale: 0.97 }}
-                  href="#features"
-                  className="flex items-center justify-between py-3.5 px-4 rounded-xl transition-all duration-200 group"
-                  style={{
-                    background: "#f0e2e6",
-                    boxShadow: "5px 5px 10px #d0b6be, -5px -5px 10px #ffffff",
-                    color: "#c23b78"
-                  }}
-                  onClick={(e) => {
-                    e.preventDefault();
+                  onClick={() => {
                     setIsMobileMenuOpen(false);
-                    document.getElementById('features')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    scrollToSection('features');
+                  }}
+                  className="flex items-center justify-between py-3.5 px-4 rounded-xl transition-all duration-200 group cursor-pointer"
+                  style={{
+                    background: activeSection === 'features'
+                      ? "linear-gradient(135deg, rgba(194,59,120,0.1), rgba(217,92,146,0.05))"
+                      : "#f0e2e6",
+                    boxShadow: activeSection === 'features'
+                      ? "inset 4px 4px 8px #d0b6be, inset -4px -4px 8px #ffffff"
+                      : "5px 5px 10px #d0b6be, -5px -5px 10px #ffffff",
+                    color: activeSection === 'features' ? "#d95c92" : "#c23b78"
                   }}
                 >
                   <div className="flex items-center gap-3">
@@ -266,23 +315,31 @@ const LandingHeader = () => {
                     </div>
                     <span className="font-medium text-sm">Fonctionnalités</span>
                   </div>
-                  <ChevronRight className="h-4 w-4 opacity-60 group-hover:opacity-100 transition-opacity" />
+                  {activeSection === 'features' && (
+                    <motion.div
+                      layoutId="mobileActiveIndicator"
+                      className="w-1.5 h-1.5 rounded-full"
+                      style={{ background: "#d95c92" }}
+                    />
+                  )}
                 </motion.a>
-                
+
                 <motion.a
                   variants={mobileItemVariants}
                   whileTap={{ scale: 0.97 }}
-                  href="#how-it-works"
-                  className="flex items-center justify-between py-3.5 px-4 rounded-xl transition-all duration-200 group"
-                  style={{
-                    background: "#f0e2e6",
-                    boxShadow: "5px 5px 10px #d0b6be, -5px -5px 10px #ffffff",
-                    color: "#c23b78"
-                  }}
-                  onClick={(e) => {
-                    e.preventDefault();
+                  onClick={() => {
                     setIsMobileMenuOpen(false);
-                    document.getElementById('how-it-works')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    scrollToSection('how-it-works');
+                  }}
+                  className="flex items-center justify-between py-3.5 px-4 rounded-xl transition-all duration-200 group cursor-pointer"
+                  style={{
+                    background: activeSection === 'how-it-works'
+                      ? "linear-gradient(135deg, rgba(194,59,120,0.1), rgba(217,92,146,0.05))"
+                      : "#f0e2e6",
+                    boxShadow: activeSection === 'how-it-works'
+                      ? "inset 4px 4px 8px #d0b6be, inset -4px -4px 8px #ffffff"
+                      : "5px 5px 10px #d0b6be, -5px -5px 10px #ffffff",
+                    color: activeSection === 'how-it-works' ? "#d95c92" : "#c23b78"
                   }}
                 >
                   <div className="flex items-center gap-3">
@@ -297,7 +354,13 @@ const LandingHeader = () => {
                     </div>
                     <span className="font-medium text-sm">Comment ça marche</span>
                   </div>
-                  <ChevronRight className="h-4 w-4 opacity-60 group-hover:opacity-100 transition-opacity" />
+                  {activeSection === 'how-it-works' && (
+                    <motion.div
+                      layoutId="mobileActiveIndicator"
+                      className="w-1.5 h-1.5 rounded-full"
+                      style={{ background: "#d95c92" }}
+                    />
+                  )}
                 </motion.a>
 
                 {/* Séparateur décoratif */}
@@ -306,7 +369,7 @@ const LandingHeader = () => {
                     <div className="w-full h-px" style={{ background: "linear-gradient(90deg, transparent, #d0b6be, transparent)" }} />
                   </div>
                 </div>
-                
+
                 {/* Bouton connexion mobile */}
                 <motion.button
                   variants={mobileItemVariants}
