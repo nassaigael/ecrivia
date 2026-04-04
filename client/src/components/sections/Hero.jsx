@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Sparkles, Mail, Zap, ArrowRight, Edit3, Globe, Star, Clock, Cpu, Shield, Rocket } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import Logo from '../../assets/images/logo.png';
+import Logo from '../../assets/logo.png';
 
 const Hero = () => {
   const navigate = useNavigate();
@@ -21,7 +21,6 @@ const Hero = () => {
     { text: "Sécurisé et confidentiel", icon: Shield }
   ];
 
-  // Typing animation with delete effect
   useEffect(() => {
     const currentPhrase = phrases[phraseIndex].text;
 
@@ -178,7 +177,7 @@ const Hero = () => {
       <div className="max-w-7xl mx-auto text-center relative z-10">
         <motion.div
           variants={itemVariants}
-          className="flex justify-center mb-8"
+          className="flex justify-center mb-6 md:mb-8"
         >
           <div className="relative">
             <motion.div
@@ -188,7 +187,7 @@ const Hero = () => {
               style={{ background: "radial-gradient(circle, #d95c92 0%, transparent 70%)", opacity: 0.3 }}
             />
             <div
-              className="rounded-3xl p-5 relative"
+              className="rounded-3xl p-4 md:p-5 relative"
               style={{
                 background: "#f0e2e6",
                 boxShadow: "20px 20px 40px #d0b6be, -20px -20px 40px #ffffff",
@@ -197,15 +196,16 @@ const Hero = () => {
               <img
                 src={Logo}
                 alt="ECRIVIA"
-                className="h-20 w-20 sm:h-24 sm:w-24 object-contain rounded-xl"
+                className="h-16 w-16 sm:h-20 sm:w-20 md:h-24 md:w-24 object-contain rounded-xl"
               />
             </div>
           </div>
         </motion.div>
 
+        {/* Titre avec tailles responsives corrigées */}
         <motion.h1
           variants={itemVariants}
-          className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold mb-6 leading-[1.2]"
+          className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-4 md:mb-6 leading-[1.2] px-2"
           style={{
             background: "linear-gradient(135deg, #c23b78, #d95c92, #e07aa3, #d95c92)",
             backgroundSize: "300% 300%",
@@ -223,7 +223,7 @@ const Hero = () => {
           <span className="relative inline-block">
             communiquez mieux
             <motion.div
-              className="absolute -bottom-2 left-0 right-0 h-1 rounded-full"
+              className="absolute -bottom-2 left-0 right-0 h-0.5 md:h-1 rounded-full"
               style={{ background: "linear-gradient(90deg, #c23b78, #d95c92, #e07aa3)" }}
               initial={{ width: 0 }}
               animate={{ width: "100%" }}
@@ -237,7 +237,7 @@ const Hero = () => {
           className="flex justify-center mb-6"
         >
           <div
-            className="inline-flex items-center gap-3 px-6 py-3 rounded-full transition-all duration-300"
+            className="inline-flex items-center gap-2 md:gap-3 px-4 md:px-6 py-2 md:py-3 rounded-full transition-all duration-300"
             style={{
               background: "#f0e2e6",
               boxShadow: "inset 6px 6px 12px #d0b6be, inset -6px -6px 12px #ffffff",
@@ -251,11 +251,11 @@ const Hero = () => {
                 exit={{ rotate: 180, opacity: 0, scale: 0 }}
                 transition={{ duration: 0.4, type: "spring" }}
               >
-                <CurrentIcon className="h-5 w-5 sm:h-6 sm:w-6" style={{ color: "#d95c92" }} />
+                <CurrentIcon className="h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6" style={{ color: "#d95c92" }} />
               </motion.div>
             </AnimatePresence>
 
-            <p className="text-base sm:text-lg md:text-xl font-medium" style={{ color: "#a86a8a" }}>
+            <p className="text-xs sm:text-sm md:text-base lg:text-lg font-medium" style={{ color: "#a86a8a" }}>
               <span>{displayText}</span>
               <motion.span
                 animate={{ opacity: [1, 0, 1] }}
@@ -271,7 +271,7 @@ const Hero = () => {
 
         <motion.p
           variants={itemVariants}
-          className="text-sm sm:text-base md:text-lg max-w-2xl mx-auto mb-10 leading-relaxed px-4"
+          className="text-xs sm:text-sm md:text-base max-w-2xl mx-auto mb-8 md:mb-10 leading-relaxed px-4"
           style={{ color: "#8a5a6a" }}
         >
           ECRIVIA utilise l'intelligence artificielle pour rédiger des emails professionnels
@@ -283,7 +283,7 @@ const Hero = () => {
 
         <motion.div
           variants={itemVariants}
-          className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16"
+          className="flex flex-col sm:flex-row items-center justify-center gap-3 md:gap-4 mb-12 md:mb-16"
         >
           <motion.button
             variants={buttonVariants}
@@ -291,14 +291,14 @@ const Hero = () => {
             whileHover="hover"
             whileTap="tap"
             onClick={() => navigate('/app')}
-            className="group px-6 sm:px-8 py-3 sm:py-3.5 rounded-xl font-bold text-white flex items-center gap-2 cursor-pointer relative overflow-hidden"
+            className="group px-5 sm:px-6 md:px-8 py-2.5 sm:py-3 md:py-3.5 rounded-xl font-bold text-white flex items-center gap-2 cursor-pointer relative overflow-hidden"
             style={{
               background: "linear-gradient(135deg, #c23b78, #d95c92)",
               boxShadow: "12px 12px 24px #c0a0b0, -12px -12px 24px #ffffff",
             }}
           >
-            <span className="relative z-10 flex items-center gap-2 text-sm sm:text-base">
-              <Rocket className="h-4 w-4 sm:h-5 sm:w-5" />
+            <span className="relative z-10 flex items-center gap-2 text-xs sm:text-sm md:text-base">
+              <Rocket className="h-3 w-3 sm:h-4 sm:w-4 md:h-5 md:w-5" />
               Commencer gratuitement
               <ArrowRight className="h-3 w-3 sm:h-4 sm:w-4 group-hover:translate-x-1 transition-transform" />
             </span>
@@ -315,7 +315,7 @@ const Hero = () => {
             initial="idle"
             whileHover="hover"
             whileTap="tap"
-            className="px-6 sm:px-8 py-3 sm:py-3.5 rounded-xl font-bold flex items-center gap-2 cursor-pointer text-sm sm:text-base"
+            className="px-5 sm:px-6 md:px-8 py-2.5 sm:py-3 md:py-3.5 rounded-xl font-bold flex items-center gap-2 cursor-pointer text-xs sm:text-sm md:text-base"
             style={{
               background: "#f0e2e6",
               boxShadow: "10px 10px 20px #d0b6be, -10px -10px 20px #ffffff",
@@ -332,7 +332,7 @@ const Hero = () => {
 
         <motion.div
           variants={itemVariants}
-          className="flex flex-wrap justify-center gap-6 md:gap-12 lg:gap-16 pt-8 border-t"
+          className="flex flex-wrap justify-center gap-4 md:gap-6 lg:gap-8 pt-6 md:pt-8 border-t"
           style={{ borderColor: "#e0c0d0" }}
         >
           {stats.map((stat, idx) => {
@@ -346,19 +346,19 @@ const Hero = () => {
                 animate={isActive ? { scale: 1.05, y: -3 } : {}}
                 transition={{ type: "spring", stiffness: 300 }}
               >
-                <div className="flex items-center justify-center mb-2">
+                <div className="flex items-center justify-center mb-1 md:mb-2">
                   <div
-                    className="p-2 rounded-xl"
+                    className="p-1.5 md:p-2 rounded-xl"
                     style={{
                       background: "#f0e2e6",
                       boxShadow: isActive ? "inset 4px 4px 8px #d0b6be, inset -4px -4px 8px #ffffff" : "6px 6px 12px #d0b6be, -6px -6px 12px #ffffff",
                     }}
                   >
-                    <Icon className="h-4 w-4 sm:h-5 sm:w-5" style={{ color: isActive ? "#d95c92" : "#c23b78" }} />
+                    <Icon className="h-3 w-3 sm:h-4 sm:w-4 md:h-5 md:w-5" style={{ color: isActive ? "#d95c92" : "#c23b78" }} />
                   </div>
                 </div>
-                <p className="text-xl sm:text-2xl md:text-3xl font-bold" style={{ color: "#c23b78" }}>{stat.value}</p>
-                <p className="text-xs sm:text-sm" style={{ color: "#a86a8a" }}>{stat.label}</p>
+                <p className="text-base sm:text-xl md:text-2xl lg:text-3xl font-bold" style={{ color: "#c23b78" }}>{stat.value}</p>
+                <p className="text-[10px] sm:text-xs md:text-sm" style={{ color: "#a86a8a" }}>{stat.label}</p>
               </motion.div>
             );
           })}

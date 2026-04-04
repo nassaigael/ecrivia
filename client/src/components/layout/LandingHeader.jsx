@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, ChevronRight, LogIn, Info, HelpCircle } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import Logo from '../../assets/images/logo.png';
+import Logo from '../../assets/logo.png';
 
 const LandingHeader = () => {
   const navigate = useNavigate();

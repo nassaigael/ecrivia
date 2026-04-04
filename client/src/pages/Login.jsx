@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { usePuterAuth } from '../hooks/usePuterAuth';
 import { User, Lock } from 'lucide-react';
-import logo from '../assets/images/logo.png';
+import logo from '../assets/logo.png';
 
 const LoginForm = ({ setUserData, setIsLoggedIn }) => {
   const [loading, setLoading] = useState(false);

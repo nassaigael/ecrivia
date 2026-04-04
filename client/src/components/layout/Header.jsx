@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 // eslint-disable-next-line no-unused-vars
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronDown, ChevronUp, User, LogOut, AlertCircle, Sparkles } from 'lucide-react';
-import Logo from '../../assets/images/logo.png';
+import Logo from '../../assets/logo.png';
 
 export default function Header({ userData, logout }) {
   const [showDropdown, setShowDropdown] = useState(false);
