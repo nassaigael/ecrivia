@@ -23,6 +23,8 @@ const CTASection = () => {
     }
   };
 
+  
+
   const titleVariants = {
     hidden: { opacity: 0, y: 30 },
     visible: {
