@@ -202,7 +202,6 @@ const Hero = () => {
           </div>
         </motion.div>
 
-        {/* Titre avec tailles responsives corrigées */}
         <motion.h1
           variants={itemVariants}
           className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-4 md:mb-6 leading-[1.2] px-2"
@@ -225,8 +224,6 @@ const Hero = () => {
             <motion.div
               className="absolute -bottom-2 left-0 right-0 h-0.5 md:h-1 rounded-full"
               style={{ background: "linear-gradient(90deg, #c23b78, #d95c92, #e07aa3)" }}
-              initial={{ width: 0 }}
-              animate={{ width: "100%" }}
               transition={{ delay: 0.8, duration: 0.6 }}
             />
           </span>
