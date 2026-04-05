@@ -219,13 +219,8 @@ const Hero = () => {
         >
           Écrivez moins,
           <br />
+          communiquez mieux
           <span className="relative inline-block">
-            communiquez mieux
-            <motion.div
-              className="absolute -bottom-2 left-0 right-0 h-0.5 md:h-1 rounded-full"
-              style={{ background: "linear-gradient(90deg, #c23b78, #d95c92, #e07aa3)" }}
-              transition={{ delay: 0.8, duration: 0.6 }}
-            />
           </span>
         </motion.h1>
 
