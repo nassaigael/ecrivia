@@ -1,0 +1,13 @@
+# Robots.txt pour ECRIVIA
+# https://ecrivia.onrender.com/robots.txt
+
+User-agent: *
+Allow: /
+
+# Interdire l'accès aux dossiers sensibles
+Disallow: /private/
+Disallow: /admin/
+Disallow: /api/
+
+# Sitemap
+Sitemap: https://ecrivia.onrender.com/sitemap.xml
